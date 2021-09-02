@@ -17,7 +17,7 @@
 
 			<p class="navbar-text"><span class="label bg-success">Online</span></p>
 
-			<ul class="nav navbar-nav navbar-right">
+			<ul class="nav navbar-nav navbar-right" >
 				<li><a href="login.php"><i class="icon-switch2"></i> LOGOUT</a></li>
 			</ul>
 			</li>

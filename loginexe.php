@@ -10,8 +10,7 @@ $resultados = mysqli_query($conexion,"SELECT * FROM usuario_v");
 
 
 $consulta = mysqli_fetch_array($resultados);
-// print_r($consulta);
-// die;
+
 if($consulta==true)
 { 
     $correo=$consulta['usuario'];
@@ -20,7 +19,7 @@ if($consulta==true)
     if($correo==$email and $contra==$pass)
     {
         setcookie("usuario", $email, time()+(60*60*24*365));
-        header ("Location: home.php");
+        header ("Location: index.php?route=home");
     }
     else{
 

@@ -22,7 +22,7 @@
 						<div class="category-content no-padding">
 							<ul class="navigation navigation-main navigation-accordion">
 
-								<li class="active"><a href="home.php"><i class="icon-home4"></i> <span>Home</span></a>
+								<li class="active"><a href="index.php?route=home"><i class="icon-home4"></i> <span>Home</span></a>
 								</li>
 
 								<!-- Almacen -->
@@ -119,7 +119,7 @@
 									<a href="#" class="has-ul"><i class="icon-users"></i> <span>Usuarios</span></a>
 									<ul class="hidden-ul">
 										<li><a href="">Empleados</a></li>
-										<li><a href="">Usuario</a></li>
+										<li><a href="index.php?route=usuario">Usuario</a></li>
 
 									</ul>
 								</li>

@@ -8,11 +8,6 @@
     
 </head>
 <body>
-    <!-- Main content para los Boxes-->
-			<div class="content-wrapper">
-				<!-- Content area -->
-				<div class="content">
-
       <!-- Small boxes (Stat box) -->
       <div class="row">
           <div class="col-lg-3 col-6">
@@ -144,10 +139,6 @@
             </div>
           </div>
           <!-- ./col -->
-        </div>
-				</div>
-				<!-- /content area -->
-
 			</div>
 			<!-- /main content -->
 </body>

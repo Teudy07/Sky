@@ -21,8 +21,8 @@
 								<thead>
 									<tr>
 										<th>#</th>
-										<th>Usuario</th>
 										<th>Tipo de Usuario</th>
+										<th>Usuario</th>
 										<th>Nombre</th>
 										<th>Sexo</th>
 										<th>estado</th>
@@ -45,21 +45,21 @@
                                         //     $rol = 'warning';
                                         // }
 
-                                        $rol  = ($key["rol"] == 'administrador') ? 'warning' : 'success';
+                                        $rol  = ($key["rol"] == 'administrador') ? 'info' : 'primary';
                                         $estado  = ($key["estado"] == 1) ? '<span class="label label-success label-rounded">
                                         <span class="text-bold">ACTIVO</span>
-                                    </span>' : '<span class="label label-danger label-rounded">
-                                    <span class="text-bold">INACTIVO</span>';
+                                         </span>' : '<span class="label label-danger label-rounded">
+                                         <span class="text-bold">INACTIVO</span>';
 
                                         $indice = $index+1;
                                         echo '<tr>
                                                 <td> '.  $indice .' </td>
-                                                <td> '. $key["usuario"] .' </td>
                                                 <td> 
                                                     <span class="label label-'. $rol  .' label-rounded">
                                                         <span class="text-bold">'. $key["rol"] .'</span>
                                                     </span>
                                                 </td>
+                                                <td> '. $key["usuario"] .' </td>
                                                 <td> '. $key["nombre"] .' ' .  $key["apellido"] .' </td>
                                                 <td> '. $key["sexo"] .' </td>
                                                 <td> '. $estado .' </td>
