@@ -10,6 +10,11 @@ require_once "models/Conexion.php";
 require_once "controllers/UsuarioController.php";
 require_once "models/UsuarioModel.php";
 
+#CONSULTA GENERAL
+require_once "controllers/ConsultaController.php";
+require_once "models/ConsultaModel.php";
+
+
 
 
 $template = new TemplateController();
