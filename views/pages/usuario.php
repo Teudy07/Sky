@@ -16,12 +16,78 @@
     </div>
 </div>
 
+<div id="reload-div">
+							<table class="table datatable-basic table-xxs table-hover">
+								<thead>
+									<tr>
+										<th>#</th>
+										<th>Usuario</th>
+										<th>Tipo de Usuario</th>
+										<th>Nombre</th>
+										<th>Sexo</th>
+										<th>estado</th>
+										<th class="text-center">Acciones</th>
+									</tr>
+								</thead>
+
+								<tbody>
+
+                                <?php 
+                                    $usuario = new UsuarioController();
+                                    $resultados = $usuario->getUsuario();
+
+                                    foreach($resultados as $index => $key) {
+                                        $indice = $index+1;
+                                        $rol = '';
+                                        // if($key["rol"] == 'administrador') {
+                                        //     $rol = 'warning';
+                                        // } else {
+                                        //     $rol = 'warning';
+                                        // }
+
+                                        $rol  = ($key["rol"] == 'administrador') ? 'warning' : 'success';
+                                        $estado  = ($key["estado"] == 1) ? '<span class="label label-success label-rounded">
+                                        <span class="text-bold">ACTIVO</span>
+                                    </span>' : '<span class="label label-danger label-rounded">
+                                    <span class="text-bold">INACTIVO</span>';
+
+                                        $indice = $index+1;
+                                        echo '<tr>
+                                                <td> '.  $indice .' </td>
+                                                <td> '. $key["usuario"] .' </td>
+                                                <td> 
+                                                    <span class="label label-'. $rol  .' label-rounded">
+                                                        <span class="text-bold">'. $key["rol"] .'</span>
+                                                    </span>
+                                                </td>
+                                                <td> '. $key["nombre"] .' ' .  $key["apellido"] .' </td>
+                                                <td> '. $key["sexo"] .' </td>
+                                                <td> '. $estado .' </td>
+
+                                                <td> 
+                                                    <ul class="icons-list">
+                                                        <li class="dropdown">
+                                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                                                <i class="icon-menu9"></i>
+                                                            </a>
+                                                    
+                                                            <ul class="dropdown-menu dropdown-menu-right">
+                                                                <li><a href="javascript:;" data-toggle="modal" data-target="#modal_iconified">
+                                                                        <i class="icon-pencil6">
+                                                                        </i> Editar</a></li>
+                                                                <li><a href="javascript:;" data-toggle="modal" data-target="#modal_iconified">
+                                                                        <i class=" icon-eye8">
+                                                                        </i> Ver</a></li>
+                                                            </ul>
+                                                        </li>
+                                                    </ul> 
+                                                </td>
+                                              </tr>';
+                                    }
+                                ?>
+
+								</tbody>
+							</table>
+						</div>
 
 
-<?php 
-    $usuario = new UsuarioController();
-    echo "<pre>";
-    print_r($usuario->getUsuario());
-    echo "</pre>";
-
-?>
