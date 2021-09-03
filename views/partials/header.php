@@ -16,66 +16,66 @@
      <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
+  <link rel="stylesheet" href="views/assets/plugins/fontawesome-free/css/all.min.css">
   <!-- Ionicons -->
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
   <!-- Tempusdominus Bootstrap 4 -->
-  <link rel="stylesheet" href="plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+  <link rel="stylesheet" href="views/assets/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
   <!-- iCheck -->
-  <link rel="stylesheet" href="plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+  <link rel="stylesheet" href="views/assets/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
   <!-- JQVMap -->
-  <link rel="stylesheet" href="plugins/jqvmap/jqvmap.min.css">
+  <link rel="stylesheet" href="views/assets/plugins/jqvmap/jqvmap.min.css">
   <!-- Theme style -->
-  <link rel="stylesheet" href="dist/css/adminlte.min.css">
+  <link rel="stylesheet" href="views/assets/dist/css/adminlte.min.css">
   <!-- overlayScrollbars -->
-  <link rel="stylesheet" href="plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+  <link rel="stylesheet" href="views/assets/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
   <!-- Daterange picker -->
-  <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css">
+  <link rel="stylesheet" href="views/assets/plugins/daterangepicker/daterangepicker.css">
   <!-- summernote -->
-  <link rel="stylesheet" href="plugins/summernote/summernote-bs4.min.css">
+  <link rel="stylesheet" href="views/assets/plugins/summernote/summernote-bs4.min.css">
 
   <!-- Global stylesheets -->
 		<!--<link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">-->
-	<link href="CSS/styles.css" rel="stylesheet" type="text/css">
-	<link href="CSS/bootstrap.css" rel="stylesheet" type="text/css">
-	<link href="CSS/core.css" rel="stylesheet" type="text/css">
-	<link href="CSS/components.css" rel="stylesheet" type="text/css">
-	<link href="CSS/colors.css" rel="stylesheet" type="text/css">
+	<link href="views/assets/CSS/styles.css" rel="stylesheet" type="text/css">
+	<link href="views/assets/CSS/bootstrap.css" rel="stylesheet" type="text/css">
+	<link href="views/assets/CSS/core.css" rel="stylesheet" type="text/css">
+	<link href="views/assets/CSS/components.css" rel="stylesheet" type="text/css">
+	<link href="views/assets/CSS/colors.css" rel="stylesheet" type="text/css">
 
 	<!-- /global stylesheets -->
 
 	<!-- Core JS files -->
-	<script type="text/javascript" src="JS/pace.js"></script>
-	<script type="text/javascript" src="JS/jquery_002.js"></script>
-	<script type="text/javascript" src="JS/bootstrap.js"></script>
-	<script type="text/javascript" src="JS/blockui.js"></script>
+	<script type="text/javascript" src="views/assets/JS/pace.js"></script>
+	<script type="text/javascript" src="views/assets/JS/jquery_002.js"></script>
+	<script type="text/javascript" src="views/assets/JS/bootstrap.js"></script>
+	<script type="text/javascript" src="views/assets/JS/blockui.js"></script>
 	<!-- /core JS files -->
 
 	<!-- Theme JS files -->
-	<script type="text/javascript" src="JS/datatables.js"></script>
-	<script type="text/javascript" src="JS/responsive.js"></script>
-	<script type="text/javascript" src="JS/buttons.js"></script>
-	<script type="text/javascript" src="JS/select2.js"></script>
-	<script type="text/javascript" src="JS/jquery.js"></script>
-	<script type="text/javascript" src="JS/messages_es.js"></script>
-	<script type="text/javascript" src="JS/jquery_003.js"></script>
-	<script type="text/javascript" src="JS/moment_locales.js"></script>
-	<script type="text/javascript" src="JS/bootstrap-datetimepicker.js"></script>
-	<script type="text/javascript" src="JS/switchery.js"></script>
-	<script type="text/javascript" src="JS/switch.js"></script>
-	<script type="text/javascript" src="JS/touchspin.js"></script>
-	<script type="text/javascript" src="JS/d3.js"></script>
-	<script type="text/javascript" src="JS/c3.js"></script>
+	<script type="text/javascript" src="views/assets/JS/datatables.js"></script>
+	<script type="text/javascript" src="views/assets/JS/responsive.js"></script>
+	<script type="text/javascript" src="views/assets/JS/buttons.js"></script>
+	<script type="text/javascript" src="views/assets/JS/select2.js"></script>
+	<script type="text/javascript" src="views/assets/JS/jquery.js"></script>
+	<script type="text/javascript" src="views/assets/JS/messages_es.js"></script>
+	<script type="text/javascript" src="views/assets/JS/jquery_003.js"></script>
+	<script type="text/javascript" src="views/assets/JS/moment_locales.js"></script>
+	<script type="text/javascript" src="views/assets/JS/bootstrap-datetimepicker.js"></script>
+	<script type="text/javascript" src="views/assets/JS/switchery.js"></script>
+	<script type="text/javascript" src="views/assets/JS/switch.js"></script>
+	<script type="text/javascript" src="views/assets/JS/touchspin.js"></script>
+	<script type="text/javascript" src="views/assets/JS/d3.js"></script>
+	<script type="text/javascript" src="views/assets/JS/c3.js"></script>
 
-	<script type="text/javascript" src="JS/steps.js"></script>
-	<script type="text/javascript" src="JS/core.js"></script>
-	<script type="text/javascript" src="JS/uniform.js"></script>
-	<script type="text/javascript" src="JS/sweet_alert.js"></script>
-	<script type="text/javascript" src="JS/fileinput.js"></script>
-	<script type="text/javascript" src="JS/es.js"></script>
-	<script type="text/javascript" src="JS/cookie.js"></script>
+	<script type="text/javascript" src="views/assets/JS/steps.js"></script>
+	<script type="text/javascript" src="views/assets/JS/core.js"></script>
+	<script type="text/javascript" src="views/assets/JS/uniform.js"></script>
+	<script type="text/javascript" src="views/assets/JS/sweet_alert.js"></script>
+	<script type="text/javascript" src="views/assets/JS/fileinput.js"></script>
+	<script type="text/javascript" src="views/assets/JS/es.js"></script>
+	<script type="text/javascript" src="views/assets/JS/cookie.js"></script>
 
-	<script type="text/javascript" src="JS/app.js"></script>
+	<script type="text/javascript" src="views/assets/JS/app.js"></script>
 	<!-- /theme JS files -->
 
 
