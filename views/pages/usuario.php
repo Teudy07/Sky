@@ -72,8 +72,8 @@
                                     </a>
                             
                                     <ul class="dropdown-menu dropdown-menu-right">
-                                        <li><a href="javascript:;" data-toggle="modal" data-target="#modal_iconified">
-                                                <i class="icon-pencil6">
+                                        <li><a href="javascript:;" class="editarUsuario" idusuario="'. $key["idUsuario"] .'" data-toggle="modal" data-target="#registroUsuarioModal">
+                                                <i class="icon-pencil6 ">
                                                 </i> Editar</a></li>
                                         <li><a href="javascript:;" data-toggle="modal" data-target="#modal_iconified">
                                                 <i class=" icon-eye8">
@@ -89,7 +89,6 @@
         </tbody>
     </table>
 </div>
-
 
 <!-- MODAL REGISTRAR PRODUCTO-->
 <div class="modal fade" id="registroUsuarioModal" style="display: none; padding-right: 17px;" aria-modal="true">
@@ -107,41 +106,48 @@
 
                         <div class="card-body">
                             <div class="row">
+                                <input type="hidden" name="idUsuario" id="idUsuario">
                                 <div class="col-6">
                                     <div class="form-group">
                                         <label for="nombreModal">Nombre</label>
-                                        <input type="text" name="nombre" class="form-control" id="nombreModal" placeholder="Ingrese el nombre">
+                                        <input type="text" name="nombre" class="form-control" id="apellido" placeholder="Ingrese el nombre" value="teudy" required>
                                     </div>
                                 </div>
                                 <div class="col-6">
                                     <div class="form-group">
                                         <label for="nombreModal">Apellido</label>
-                                        <input type="text" name="apellido" class="form-control" id="apellidoModal" placeholder="Ingrese el apellido">
+                                        <input type="text" name="apellido" class="form-control" id="apellido" placeholder="Ingrese el apellido" value="radames" required>
                                     </div>
                                 </div>
 
                                 <div class="col-6">
                                     <div class="form-group">
                                         <label>identificacion</label>
-                                        <select class="form-control select2bs4" name="identificacion" id="identificacionModel">
-                                            <option value="" disabled selected>Seleccione una categoria</option>
+                                        <select class="form-control select2bs4" name="tipoIdentificacion" id="tipoIdentificacion" required>
+                                            <option value="" disabled selected>Seleccione una opcion</option>
                                             <?php 
                                                 $sexo = ConsultaController::getDatos("tipo", "tipo","identificacion");
-                                                foreach($sexo as $key) {
-                                                    echo "<option value=". $key['idTipo'] .">" . $key['nombre'] . "</option>";
+                                                foreach($sexo as $index => $key) {
+                                                    echo "<option value=". $key['idtipo'] ." >" . $key['nombre'] . "</option>";
                                                 }
                                             ?>
                                         </select>
                                     </div>
+                                    <div class="col-6">
+                                    <div class="form-group">
+                                        <label for="nombreModal">Identificacion</label>
+                                        <input type="text" name="identificacion" class="form-control" id="identificacion" placeholder="Ingrese el apellido" value="0310565465" required>
+                                    </div>
+                                </div>
                                 </div>
                                 <div class="col-6">
                                     <div class="form-group">
                                         <label>Sexo</label>
-                                        <select class="form-control select2bs4" name="identificacion" id="identificacionModel">
+                                        <select class="form-control select2bs4" name="sexo" id="sexo" required>
                                             <option value="" disabled selected>Seleccione una opcion</option>
                                             <?php 
                                                 $sexo = ConsultaController::getDatos("sexo",null, null);
-                                                foreach($sexo as $key) {
+                                                foreach($sexo as $index => $key) {
                                                     echo "<option value=". $key['idSexo'] .">" . $key['nombre'] . "</option>";
                                                 }
                                             ?>
@@ -152,24 +158,25 @@
                                 <div class="col-6">
                                     <div class="form-group">
                                         <label for="nombreModal">Correo</label>
-                                        <input type="email" name="correo" class="form-control" id="correoModal" placeholder="Correo electronico">
+                                        <input type="email" name="correo" class="form-control" id="correo" placeholder="Correo electronico" value="teudy@sadf.com" required>
                                     </div>
                                 </div>
                                 <div class="col-6">
                                     <div class="form-group">
                                         <label for="nombreModal">Telefono</label>
-                                        <input type="text" name="telefono" class="form-control" id="telefonoModal" placeholder="Numero telefonico">
+                                        <input type="text" name="telefono" class="form-control" id="telefono" placeholder="Numero telefonico" value="829-555-9999" required>
                                     </div>
                                 </div>
 
                                 <div class="col-6-lg col-xl-6 col-sm-12">
                                     <div class="form-group">
                                         <label>Rol</label>
-                                        <select class="form-control" name="rol" id="rolModal">
+                                        <select class="form-control" name="rol" id="rolModal" required>
                                             <option value="" disabled selected>Seleccione una opcion</option>
                                             <?php 
                                                 $sexo = ConsultaController::getDatos("rol",null, null);
-                                                foreach($sexo as $key) {
+                                                foreach($sexo as $index => $key) {
+                                                        
                                                     echo "<option value=". $key['idRol'] .">" . $key['nombre'] . "</option>";
                                                 }
                                             ?>
@@ -178,43 +185,33 @@
                                 </div>
                                 <div class="col-6-lg col-xl-6 col-sm-12">
                                     <div class="form-group">
-                                        <label>Sub tipo</label>
-                                        <select class="form-control select2bs4" name="idSubTipo" id="idSubTipo">
-                                            <option value="" disabled selected>Seleccione subtipo</option>
-                                        </select>
+                                            <label for="nombreModal">usuario</label>
+                                            <input type="text" name="usuario" class="form-control" id="usaurio" placeholder="Ingrese el nombre de usuario" value="teudy" required> 
                                     </div>
                                 </div>
                                 <div class="col-6-lg col-xl-6 col-sm-12">
                                     <div class="form-group">
-                                        <label>Producto</label>
+                                        <label>Contraseña</label>
                                         <div class="input-group mb-3">
-                                            <input type="password" class="form-control" name="producto" id="producto" placeholder="Ingrese el nombre del producto" autocomplete="off">
+                                            <input type="password" class="form-control" name="clave" id="clave" placeholder="Ingrese la contraseña" autocomplete="off" value="123456" required>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-sm-12">
+                                <div class="col-6-lg col-xl-6 col-sm-12">
                                     <div class="form-group">
-                                        <label>Descripcion</label>
+                                        <label>Confirmar Contraseña</label>
                                         <div class="input-group mb-3">
-                                            <textarea name="descripcion" id="descripcion" class="form-control" placeholder="Ingrese una descripcion del producto" cols="30" rows="2"></textarea>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label for="customFile">Custom File</label>
-                                        <div class="custom-file">
-                                            <input type="file" class="custom-file-input" name="imagenes" id="customFile" multiple>
-                                            <label class="custom-file-label" for="customFile">Choose file</label>
+                                            <input type="password" class="form-control" name="confirmarClave" id="confirmarClave" placeholder="Confirme la contraseña" autocomplete="off" value="123456" required>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-6-lg col-xl-6 col-sm-12">
                                     <div class="form-group">
                                         <label>Estado</label>
-                                        <select class="form-control" name="idEstado" id="idEstado">
-                                            <option value="" disabled selected>Seleccione una opción</option>
-                                            
+                                        <select class="form-control" name="estado" id="estado">
+                                            <option value="" disabled>Seleccione una opción</option>
+                                            <option value="1" selected>Activo</option>
+                                            <option value="0">Inactivo</option>
                                         </select>
                                     </div>
                                 </div>
@@ -226,6 +223,9 @@
                     <button type="button" class="btn btn-default" id="close" data-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-info">Save changes</button>
                 </div>
+                 <?php 
+                    $usuario = UsuarioController::registrarUsuario();
+                ?> 
             </form>
           
         </div>
@@ -234,3 +234,5 @@
     <!-- /.modal-dialog -->
 </div>
 <!-- END MODAL REGISTRAR EMPLEADO-->
+
+<script src="views/assets/jspage/usuario.js"></script>

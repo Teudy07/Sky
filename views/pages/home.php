@@ -4,10 +4,10 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
-    
+    <title>Home</title>    
 </head>
 <body>
+
       <!-- Small boxes (Stat box) -->
       <div class="row">
           <div class="col-lg-3 col-6">

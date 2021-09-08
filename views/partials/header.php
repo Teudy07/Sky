@@ -44,6 +44,9 @@
 
 	<!-- /global stylesheets -->
 
+	<!-- SWEETALERT -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.1.4/sweetalert2.min.js" integrity="sha512-Lbwer45RtGISU+efaUoil1EFYFliqkKOaZhUMXG8RoZZ5fdjpK4S/2khwZynw8vyItDeaRZ+IE6XdKA6XCsyxQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.1.4/sweetalert2.min.css" integrity="sha512-Ls19wNglxCDcP78k23k5MygHFHAamARZWDggNovFF3XM4nFTgJz28wBM3m76/bqxvaGWvLKwsv/toFoLqhF8Gg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 	<!-- Core JS files -->
 	<script type="text/javascript" src="views/assets/JS/pace.js"></script>
 	<script type="text/javascript" src="views/assets/JS/jquery_002.js"></script>
