@@ -1,3 +1,4 @@
+
 <div class="panel panel-flat">
     <div class="breadcrumb-line">
         <ul class="breadcrumb">
@@ -10,14 +11,14 @@
     <div class="panel-heading">
         <h5 class="panel-title">Usuarios del Sistema</h5>
         <div class="heading-elements">
-            <button type="button" class="btn btn-primary heading-btn" data-toggle="modal" data-target="#registroUsuarioModal">
+            <button type="button" class="btn btn-primary heading-btn" onclick="`${$('#idUsuario').val('0')}`" data-toggle="modal" data-target="#registroUsuarioModal">
                 <i class="icon-database-add"></i> Agregar Nuevo/a</button>
         </div>
     </div>
 </div>
 
 <div id="reload-div">
-    <table class="table datatable-basic table-xxs table-hover">
+    <table id="tbUsuarios" class="table datatable-basic table-xxs table-hover">
         <thead>
             <tr>
                 <th>#</th>
@@ -75,9 +76,9 @@
                                         <li><a href="javascript:;" class="editarUsuario" idusuario="'. $key["idUsuario"] .'" data-toggle="modal" data-target="#registroUsuarioModal">
                                                 <i class="icon-pencil6 ">
                                                 </i> Editar</a></li>
-                                        <li><a href="javascript:;" data-toggle="modal" data-target="#modal_iconified">
-                                                <i class=" icon-eye8">
-                                                </i> Ver</a></li>
+                                        <li><a href="javascript:;" data-toggle="modal" data-target="#modal_iconified" class="bg-danger eliminarUsuario" idusuario="'. $key["idUsuario"] .'">
+                                                <i class=" icon-trash">
+                                                </i> Eliminar</a></li>
                                     </ul>
                                 </li>
                             </ul> 
@@ -94,7 +95,8 @@
 <div class="modal fade" id="registroUsuarioModal" style="display: none; padding-right: 17px;" aria-modal="true">
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
-            <form id="formRegistrarUsuario" method="post" enctype="multipart/form-data">
+            <form id="formRegistrarUsuario" method="post" enctype="multipart/form-data"
+            >
                 <div class="modal-header bg-info">
                     <h4 class="modal-title">Registro de producto</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -110,7 +112,7 @@
                                 <div class="col-6">
                                     <div class="form-group">
                                         <label for="nombreModal">Nombre</label>
-                                        <input type="text" name="nombre" class="form-control" id="apellido" placeholder="Ingrese el nombre" value="teudy" required>
+                                        <input type="text" name="nombre" class="form-control" id="nombre" placeholder="Ingrese el nombre" value="teudy" required>
                                     </div>
                                 </div>
                                 <div class="col-6">
@@ -186,7 +188,7 @@
                                 <div class="col-6-lg col-xl-6 col-sm-12">
                                     <div class="form-group">
                                             <label for="nombreModal">usuario</label>
-                                            <input type="text" name="usuario" class="form-control" id="usaurio" placeholder="Ingrese el nombre de usuario" value="teudy" required> 
+                                            <input type="text" name="usuario" class="form-control" id="usuario" placeholder="Ingrese el nombre de usuario" value="teudy" required> 
                                     </div>
                                 </div>
                                 <div class="col-6-lg col-xl-6 col-sm-12">
@@ -221,11 +223,8 @@
                 </div>
                 <div class="modal-footer justify-content-between">
                     <button type="button" class="btn btn-default" id="close" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-info">Save changes</button>
+                    <button type="submit" class="btn btn-info" id="btnRegistrar">Save changes</button>
                 </div>
-                 <?php 
-                    $usuario = UsuarioController::registrarUsuario();
-                ?> 
             </form>
           
         </div>

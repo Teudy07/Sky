@@ -13,8 +13,6 @@ class UsuarioModel {
         $exec = Conexion::conecion();
        try {
            //code...
-        //    print_r($datos);
-           echo "desde el controlador";
 
            $exec->beginTransaction();
             $exec->exec("INSERT INTO tercero VALUES()");
@@ -24,17 +22,28 @@ class UsuarioModel {
              VALUES($idTercero, '". $datos["nombre"] ."', '". $datos["apellido"] ."', ". $datos['sexo'] .", ". $datos['tipoIdentificacion'] .", '". $datos['identificacion'] ."')");
             $idPersona = $exec->lastInsertId();
 
-            
+            if(isset($datos["telefono"]) && !empty($datos["telefono"])) {
+                $exec->exec("INSERT INTO telefono(descripcion)
+                VALUES('". $datos["telefono"] ."')");
+                $idTelefono = $exec->lastInsertId();
+
+                $exec->exec("INSERT INTO tercero_telefono(idTercero, idTelefono)
+                VALUES($idTercero, $idTelefono)");
+            }
+
+            if(isset($datos["correo"]) && !empty($datos["correo"])) {
+                $exec->exec("INSERT INTO correo(descripcion)
+                VALUES('". $datos["correo"] ."')");
+                $idCorreo = $exec->lastInsertId();
+
+                $exec->exec("INSERT INTO tercero_correo(idTercero, idCorreo)
+                VALUES($idTercero, $idCorreo)");
+            }
+
             $exec->exec("INSERT INTO usuario(idPersona, idRol, usuario, clave, activo)
              VALUES($idPersona, ". $datos["rol"] .",'". $datos["usuario"] ."', '". $datos["clave"] ."', ". $datos['estado'] .")");
             $idUsuario = $exec->lastInsertId();
 
-            // echo "INSERT INTO usuario(idRol,idPersona, usuario, clave, activo)
-            // VALUES($idPersona, '". $datos["idRol"] ."', '". $datos["clave"] ."', ". $datos['estado'] .", ". $datos['tipoIdentificacion'] .", '". $datos['identificacion'] ."')";
-           
-            // echo "mostrando valor";
-            // echo "IdTercero: [" . $idTercero . "]";
-            // print_r($idTercero);
             $exec->commit();
             return  $idUsuario;
 
@@ -44,6 +53,114 @@ class UsuarioModel {
            echo "Ah ocurrido un error: " . $e->getMessage();
            throw new Exception('internal-database-error');
        }
+    }
 
+    static public function actualizarUsuario($datos) {
+        // print_r($datos);
+
+
+        $respuesta = Conexion::conecion()->prepare("
+        SELECT 
+            u.usuario,
+            p.idPersona,
+            p.idTercero,
+            COALESCE(tt.idTelefono,0) AS idTelefono,
+            COALESCE(tc.idCorreo,0) AS idCorreo
+        FROM usuario u 
+        INNER JOIN persona p ON p.idPersona = u.idPersona
+        LEFT JOIN tercero_telefono tt ON tt.idTercero = p.idTercero
+        LEFT JOIN tercero_correo tc ON tc.idTercero = p.idTercero
+        WHERE u.idUsuario = ". $datos['idUsuario'] ."
+        LIMIT 1");
+        $respuesta->execute();
+       $records = $respuesta->fetchAll();
+
+    //    print_r($records);
+        $idTercero = $records[0]['idTercero'];
+        $idTelefono = $records[0]['idTelefono'];
+        $idCorreo = $records[0]['idCorreo'];
+
+       if(count($records) > 0) {
+           if($records[0]['idTelefono'] > 0) {
+                Conexion::conecion()->prepare("UPDATE telefono SET descripcion = '". $datos['telefono'] ."' WHERE idTelefono = ". $idTelefono ."")->execute();
+           } else {
+               $stmt = Conexion::conecion();
+                $respuesta = $stmt->prepare("INSERT INTO telefono(descripcion)
+                VALUES('". $datos["telefono"] ."')")->execute();
+                $idTelefono = $stmt->lastInsertId();
+
+                $stmt->prepare("INSERT INTO tercero_telefono(idTercero, idTelefono)
+                VALUES($idTercero, $idTelefono)")->execute();
+           }
+
+
+           if($records[0]['idCorreo'] > 0) {
+                Conexion::conecion()->prepare("UPDATE correo SET descripcion = '". $datos['correo'] ."' WHERE idCorreo = ". $idCorreo ."")->execute();
+           } else {
+            $stmt = Conexion::conecion();
+             $respuesta = $stmt->prepare("INSERT INTO correo(descripcion)
+             VALUES('". $datos["correo"] ."')")->execute();
+             $idCorreo = $stmt->lastInsertId();
+
+             $stmt->prepare("INSERT INTO tercero_correo(idTercero, idCorreo)
+             VALUES($idTercero, $idCorreo)")->execute();
+        }
+
+           Conexion::conecion()->prepare("UPDATE persona p 
+                                            SET p.nombre = '". $datos['nombre'] ."', 
+                                            p.apellido = '". $datos['apellido'] ."', 
+                                            p.idSexo = ". $datos['sexo'] .", 
+                                            p.idTipoIdentificacion = ". $datos['tipoIdentificacion'] .", 
+                                            p.identificacion = '". $datos['identificacion'] ."' 
+                                          WHERE p.idPersona = ". $records[0]['idPersona'] ."")->execute();
+
+           $data = Conexion::conecion()->prepare("UPDATE usuario u SET u.idRol = ". $datos['rol'] .", u.usuario = '". $datos['usuario'] ."', u.clave = '". $datos['clave'] ."', u.activo = ". $datos['estado'] ." 
+           WHERE u.idUsuario = ". $datos['idUsuario'] ."")->execute();
+
+           return $data;
+       }
+        
+    }
+
+    static public function eliminarUsuario($idUsuario) {
+        $respuesta = Conexion::conecion()->prepare("
+            SELECT 
+                u.idUsuario,
+                u.usuario,
+                p.idPersona,
+                p.idTercero,
+                COALESCE(tt.idTelefono,0) AS idTelefono,
+                COALESCE(tc.idCorreo,0) AS idCorreo
+            FROM usuario u 
+            INNER JOIN persona p ON p.idPersona = u.idPersona
+            LEFT JOIN tercero_telefono tt ON tt.idTercero = p.idTercero
+            LEFT JOIN tercero_correo tc ON tc.idTercero = p.idTercero
+            WHERE u.idUsuario = ". $idUsuario ."
+            LIMIT 1");
+        $respuesta->execute();
+        $records = $respuesta->fetchAll();
+
+        $idUsuario = $records[0]['idUsuario'];
+        $idPersona = $records[0]['idPersona'];
+        $idTercero = $records[0]['idTercero'];
+        $idTelefono = $records[0]['idTelefono'];
+        $idCorreo = $records[0]['idCorreo'];
+
+       if(count($records) > 0) {
+           if($idTelefono > 0) {
+                Conexion::conecion()->prepare("DELETE FROM tercero_telefono WHERE idTelefono = $idTelefono")->execute();
+                Conexion::conecion()->prepare("DELETE FROM telefono WHERE idTelefono = $idTelefono")->execute();
+           } 
+           if($idCorreo > 0) {
+                Conexion::conecion()->prepare("DELETE FROM tercero_correo WHERE idCorreo = $idCorreo")->execute();
+                Conexion::conecion()->prepare("DELETE FROM correo WHERE idCorreo = $idCorreo")->execute();
+            }
+
+            Conexion::conecion()->prepare("DELETE FROM tercero WHERE idTercero = $idTercero")->execute();
+            Conexion::conecion()->prepare("DELETE FROM persona WHERE idPersona = $idPersona")->execute();
+            Conexion::conecion()->prepare("DELETE FROM usuario WHERE idUsuario = $idUsuario")->execute();
+       }
+
+       return (count($records) > 0) ? true : false;
     }
 }

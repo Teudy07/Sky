@@ -3,3 +3,13 @@ Options All -Indexes
 RewriteEngine On
 
 RewriteRule ^([-a-zA-Z0-9]+)$ index.php?route=$1
+
+AddCharset UTF-8 .html .css .js .xml .json .rss .atom .md
+
+Options +Indexes
+
+Header set Access-Control-Allow-Origin "http://localhost/"
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^ /index.php [QSA,L]
+Header set Access-Control-Allow-Origin "*"
+Header set Access-Control-Allow-Methods: "GET,POST,OPTIONS,DELETE,PUT"

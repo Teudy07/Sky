@@ -7,7 +7,7 @@ class UsuarioController {
     }
 
     static public function registrarUsuario() {
-        if($_POST['usuario'] && $_POST['rol'] > 0 ) {
+        if(isset($_POST['usuario'])) {
 
             $datos = array(
                 "nombre" => $_POST['nombre'],

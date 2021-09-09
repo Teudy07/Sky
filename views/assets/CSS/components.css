@@ -28,11 +28,7 @@
 *  Latest update: Mar 10, 2016
 *
 * ---------------------------------------------------------------------------- */
-@font-face
-{
- font-family: 'Roboto';
- src: url('roboto/Roboto-Regular.ttf');
-}
+
 .no-transitions * {
   -webkit-transition: none !important;
   -o-transition: none !important;
