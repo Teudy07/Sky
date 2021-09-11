@@ -1,0 +1,51 @@
+@import "compass/css3";
+
+* { box-sizing: border-box; }
+
+body {
+  font-family: "Open Sans", sans-serif;
+  height: 100vh;
+  background: #000000;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to left, #434343, #000000);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to left, #434343, #000000); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+}
+
+.imagen{
+  width:50px;
+          height:50px;
+
+}
+.login-main-text {
+  padding: 60px;
+  color: #000;
+}
+
+.login-main-text h2 {
+  font-weight: 300;
+  color: #000;
+}
+
+.cajita {
+  height: 300px;
+  width: auto;
+  background-color: transparent;
+  border-radius: 15px;
+  margin: 10px;
+  padding: 5px;
+  font-family: 'Dancing Script', cursive;
+  font-family: 'Josefin Slab', serif;
+}
+.hi{
+  color: #1AADC7;
+  font-family: 'Dancing Script', cursive;
+  font-family: 'Josefin Slab', serif; 
+}
+
+.my-element {
+ /* display: inline-block;*/
+ /* margin: 0 0.5rem;*/
+
+  animation: backInLeft; /* referring directly to the animation's @keyframe declaration */
+  animation-duration: 3s; /* don't forget to set a duration! */
+}
