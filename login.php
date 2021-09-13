@@ -14,8 +14,9 @@
   <?php
   include("./views/partials/header.php");
   ?>
-  
-  <title>Sky</title>
+
+
+  <title>LOGIN</title>
 
   </head>
   <body>
@@ -29,18 +30,19 @@
             <div class="login-main-text">
               <div class="cajita">
               <h1 class="hi my-element">SKY</h1>
-              <p class="text-light my-element">Control de Inventario<br>Simplifica tu trabajo en cuestion de minutos.!!</p>
+              <p class="text-light my-element">Control de Inventario.<br>Simplifica tu trabajo en cuestion de minutos.!!</p>
               </div>
             </div>
           </div>
           <div class="col-4 col-xs-12 order-md-1 mb-auto mb-md-0 pb-8 py-md-11">
           <?php if(isset($_GET['r']))
+          
     {
       ?>
-      <div class="alert alert-danger alert-dismissible fade show" role="alert">
+      <div class="alert alert-info" role="alert">
                   <strong>Datos de acceso incorrectos!</strong> 
                   <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">×</span>
+                    <span aria-hidden="true">X</span>
                   </button>
                 </div>
                 <?php
