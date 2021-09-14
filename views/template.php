@@ -53,7 +53,7 @@ header("Allow: GET, POST, OPTIONS, PUT, DELETE");
                         echo "<div class='page-content'>";
 
                         include "partials/sidebar.php";
-                        echo "<div class='content-wrapper'>";
+                        echo '<div class="content-wrapper" style="background-color:#fff"> ';
                         echo "<div class='content'>";
 
                         include "pages/".$_GET['route'].".php";

@@ -63,7 +63,7 @@
 									<a href="#" class="has-ul"><i class="icon-coins"></i> <span>Compras a
 											Credito</span></a>
 									<ul class="hidden-ul">
-										<li><a href="">Administrar Creditos</a></li>
+										<li><a href="">Cuentas por Pagar</a></li>
 									</ul>
 								</li>
 								<!-- /Compras -->
