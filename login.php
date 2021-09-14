@@ -29,8 +29,8 @@
           <div class="col-8 texto-lateral">
             <div class="login-main-text">
               <div class="cajita">
-              <h1 class="hi my-element">SKY</h1>
-              <p class="text-light my-element">Control de Inventario.<br>Simplifica tu trabajo en cuestion de minutos.!!</p>
+              <h1 class="hi my-element">SKY <br> Control de Inventario.<br></h1>
+              <p class="text-light my-element">Simplifica tu trabajo en cuestion de minutos.!!</p>
               </div>
             </div>
           </div>
@@ -39,7 +39,7 @@
           
     {
       ?>
-      <div class="alert alert-info" role="alert">
+      <div class="alert alert-success" role="alert">
                   <strong>Datos de acceso incorrectos!</strong> 
                   <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">X</span>

@@ -44,7 +44,7 @@ class UsuarioAjax {
         if($respuesta == true) {
             echo json_encode(
                 array(
-                    "ssucess" => true,
+                    "success" => true,
                     "exec" => "eliminarUsuario",
                     "msg" => "Se ha eliminado de forma correcta!!",
                 )

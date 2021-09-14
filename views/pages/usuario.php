@@ -11,7 +11,7 @@
     <div class="panel-heading">
         <h5 class="panel-title">Usuarios del Sistema</h5>
         <div class="heading-elements">
-            <button type="button" class="btn btn-primary heading-btn" onclick="`${$('#idUsuario').val('0')}`" data-toggle="modal" data-target="#registroUsuarioModal">
+            <button type="button" class="btn btn-primary heading-btn" id="btnRegistrar" data-toggle="modal" data-target="#registroUsuarioModal">
                 <i class="icon-database-add"></i> Agregar Nuevo/a</button>
         </div>
     </div>
@@ -97,10 +97,10 @@
         <div class="modal-content">
             <form id="formRegistrarUsuario" method="post" enctype="multipart/form-data"
             >
-                <div class="modal-header bg-info">
-                    <h4 class="modal-title">Registro de producto</h4>
+                <div class="modal-header bg-primary">
+                    <h4 class="modal-title" id="titulo">Registro de producto</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
+                        <span aria-hidden="true">X</span>
                     </button>
                 </div>
                 <div class="modal-body">
@@ -112,19 +112,40 @@
                                 <div class="col-6">
                                     <div class="form-group">
                                         <label for="nombreModal">Nombre</label>
-                                        <input type="text" name="nombre" class="form-control" id="nombre" placeholder="Ingrese el nombre" value="teudy" required>
+                                        <input type="text" name="nombre" class="form-control" id="nombre" placeholder="Ingrese el nombre" required>
                                     </div>
                                 </div>
                                 <div class="col-6">
                                     <div class="form-group">
                                         <label for="nombreModal">Apellido</label>
-                                        <input type="text" name="apellido" class="form-control" id="apellido" placeholder="Ingrese el apellido" value="radames" required>
+                                        <input type="text" name="apellido" class="form-control" id="apellido" placeholder="Ingrese el apellido" required>
                                     </div>
                                 </div>
 
                                 <div class="col-6">
                                     <div class="form-group">
-                                        <label>identificacion</label>
+                                    <label>Sexo</label>
+                                        <select class="form-control select2bs4" name="sexo" id="sexo" required>
+                                            <option value="" disabled selected>Seleccione una opcion</option>
+                                            <?php 
+                                                $sexo = ConsultaController::getDatos("sexo",null, null);
+                                                foreach($sexo as $index => $key) {
+                                                    echo "<option value=". $key['idSexo'] .">" . $key['nombre'] . "</option>";
+                                                }
+                                            ?>
+                                        </select>    
+                                
+                                    </div>
+                                    <div class="col-6">
+                                    <div class="form-group">
+                                        <label for="nombreModal">Identificacion</label>
+                                        <input type="text" name="identificacion" class="form-control" id="identificacion" placeholder="identificacion" required>
+                                    </div>
+                                </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group">
+                                    <label>Tipo Identificacion</label>
                                         <select class="form-control select2bs4" name="tipoIdentificacion" id="tipoIdentificacion" required>
                                             <option value="" disabled selected>Seleccione una opcion</option>
                                             <?php 
@@ -134,39 +155,20 @@
                                                 }
                                             ?>
                                         </select>
-                                    </div>
-                                    <div class="col-6">
-                                    <div class="form-group">
-                                        <label for="nombreModal">Identificacion</label>
-                                        <input type="text" name="identificacion" class="form-control" id="identificacion" placeholder="Ingrese el apellido" value="0310565465" required>
-                                    </div>
+                                            </div>
                                 </div>
-                                </div>
-                                <div class="col-6">
-                                    <div class="form-group">
-                                        <label>Sexo</label>
-                                        <select class="form-control select2bs4" name="sexo" id="sexo" required>
-                                            <option value="" disabled selected>Seleccione una opcion</option>
-                                            <?php 
-                                                $sexo = ConsultaController::getDatos("sexo",null, null);
-                                                foreach($sexo as $index => $key) {
-                                                    echo "<option value=". $key['idSexo'] .">" . $key['nombre'] . "</option>";
-                                                }
-                                            ?>
-                                        </select>
-                                    </div>
-                                </div>
-                                <hr>
+                               <br>
+                               <hr Style='background-color: black'>
                                 <div class="col-6">
                                     <div class="form-group">
                                         <label for="nombreModal">Correo</label>
-                                        <input type="email" name="correo" class="form-control" id="correo" placeholder="Correo electronico" value="teudy@sadf.com" required>
+                                        <input type="email" name="correo" class="form-control" id="correo" placeholder="Correo electronico" required>
                                     </div>
                                 </div>
                                 <div class="col-6">
                                     <div class="form-group">
                                         <label for="nombreModal">Telefono</label>
-                                        <input type="text" name="telefono" class="form-control" id="telefono" placeholder="Numero telefonico" value="829-555-9999" required>
+                                        <input type="text" name="telefono" class="form-control" id="telefono" placeholder="Numero telefonico" required>
                                     </div>
                                 </div>
 
@@ -188,14 +190,14 @@
                                 <div class="col-6-lg col-xl-6 col-sm-12">
                                     <div class="form-group">
                                             <label for="nombreModal">usuario</label>
-                                            <input type="text" name="usuario" class="form-control" id="usuario" placeholder="Ingrese el nombre de usuario" value="teudy" required> 
+                                            <input type="text" name="usuario" class="form-control" id="usuario" placeholder="Ingrese el nombre de usuario" required> 
                                     </div>
                                 </div>
                                 <div class="col-6-lg col-xl-6 col-sm-12">
                                     <div class="form-group">
                                         <label>Contraseña</label>
                                         <div class="input-group mb-3">
-                                            <input type="password" class="form-control" name="clave" id="clave" placeholder="Ingrese la contraseña" autocomplete="off" value="123456" required>
+                                            <input type="password" class="form-control" name="clave" id="clave" placeholder="Ingrese la contraseña" autocomplete="off" required>
                                         </div>
                                     </div>
                                 </div>
@@ -203,7 +205,7 @@
                                     <div class="form-group">
                                         <label>Confirmar Contraseña</label>
                                         <div class="input-group mb-3">
-                                            <input type="password" class="form-control" name="confirmarClave" id="confirmarClave" placeholder="Confirme la contraseña" autocomplete="off" value="123456" required>
+                                            <input type="password" class="form-control" name="confirmarClave" id="confirmarClave" placeholder="Confirme la contraseña" autocomplete="off" required>
                                         </div>
                                     </div>
                                 </div>
@@ -222,7 +224,7 @@
                     </div>
                 </div>
                 <div class="modal-footer justify-content-between">
-                    <button type="button" class="btn btn-default" id="close" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-danger" id="close" data-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-info" id="btnRegistrar">Save changes</button>
                 </div>
             </form>

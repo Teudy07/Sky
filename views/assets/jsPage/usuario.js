@@ -7,6 +7,28 @@ $(function () {
     ]
   });
 
+
+  $('#btnRegistrar').click(function () {
+    console.log('registrando');
+    //LIMPIANDO LOS CAMPOS
+    $('#idUsuario').val('0');
+    $("#nombre").val('');
+    $("#apellido").val('');
+    $("#tipoIdentificacion").val('');
+    $("#identificacion").val('');
+    $("#sexo").val('');
+    $("#correo").val('');
+    $("#telefono").val('');
+    $("#rolModal").val('');
+    $("#usuario").val('');
+    $("#clave").val('');
+    $("#estado").val('');
+
+    //CAMBIAR EL TIULO DEL MODAL
+    $('#titulo').html('REGISTRANDO');
+  });
+
+
   /**
    * VENTO PARA ELIMINAR USUARIO
    */
@@ -63,6 +85,10 @@ $(function () {
    */
   $(".editarUsuario").click(function () {
     console.log("click editando");
+
+    //CAMBIANDO EL TITULO DEL MODAL
+    $('#titulo').html('ACTUALIZANDO');
+
 
     const idUsuario = $(this).attr("idusuario");
     console.log(`idUsuario: ${idUsuario}`);
