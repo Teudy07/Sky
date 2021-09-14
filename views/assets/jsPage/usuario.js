@@ -54,7 +54,7 @@ $(function () {
           },
           function (response) {
     
-            if(response.ssucess === true) {
+            if(response.success === true) {
               Swal.fire(
                 'Eliminado!',
                 `${response.msg}`,
@@ -105,8 +105,8 @@ $(function () {
         $("#idUsuario").val(response.idUsuario);
         $("#nombre").val(response.nombre);
         $("#apellido").val(response.apellido);
-        $("#tipoIdentificacion").val(response.apellido);
-        $("#identificacion").val(response.apellido);
+        $("#tipoIdentificacion").val(response.idTipoIdentificacion);
+        $("#identificacion").val(response.identificacion);
         $("#sexo").val(response.idSexo);
         $("#correo").val(response.correo);
         $("#telefono").val(response.telefono);

@@ -40,7 +40,7 @@ class UsuarioAjax {
 
         // print_r($_POST);die;
         $respuesta = UsuarioModel::eliminarUsuario($idUsuario);
-        // print_r($respuesta);
+        // print_r($respuesta);die;
         if($respuesta == true) {
             echo json_encode(
                 array(
@@ -116,8 +116,8 @@ class UsuarioAjax {
                 "confirmarClave" => $_POST['confirmarClave'],
                 "estado" => $_POST['estado'],
             );
-            
             $resultado = UsuarioModel::registrarUsuario($datos);
+            
             if($resultado == 0) {
                 echo json_encode(
                     array(
