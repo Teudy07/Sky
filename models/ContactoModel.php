@@ -8,8 +8,8 @@ class ContactoModel {
         $respuesta->execute();
         return $respuesta->fetchAll();
     }
-}
-/*
+
+
     static public function registrarContacto($datos) {
         $exec = Conexion::conecion();
         
@@ -51,12 +51,12 @@ class ContactoModel {
             // echo "INSERT INTO usuario(idPersona, idRol, usuario, clave, activo)
             // VALUES($idPersona, ". $datos["rol"] .",'". $datos["usuario"] ."', '". $datos["clave"] ."', ". $datos['estado'] .")";
 
-            $exec->exec("INSERT INTO usuario(idPersona, idRol, usuario, clave, activo)
-             VALUES($idPersona, ". $datos["rol"] .",'". $datos["usuario"] ."', '". $datos["clave"] ."', ". $datos['estado'] .")");
-            $idUsuario = $exec->lastInsertId();
+            $exec->exec("INSERT INTO contacto(idTercero, esCliente, esProveedor, nombre, razonsocial, estado)
+             VALUES($idTercero, ". $datos["esCliente"] .",'". $datos["esProveedor"] ."', '". $datos["nombre"] ."', '". $datos["razonsocial"] ."', ". $datos['estado'] .")");
+            $idContacto = $exec->lastInsertId();
 
             $exec->commit();
-            return  $idUsuario;
+            return  $idContacto;
 
        } catch (PDOException $e) {
            //throw $th;
@@ -65,7 +65,7 @@ class ContactoModel {
            throw new Exception('internal-database-error');
        }
     }
-
+/*
     static public function actualizarUsuario($datos) {
         
 
@@ -183,6 +183,7 @@ class ContactoModel {
        }
 
        return (count($records) > 0) ? true : false;
-       }
+       
+    }
+    */
 }
-*/

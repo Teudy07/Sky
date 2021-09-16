@@ -1,5 +1,4 @@
 <?php
-
 class ContactoModel {
     static public function getContacto() {
         $resultado = ContactoModel::getContacto();
@@ -7,7 +6,7 @@ class ContactoModel {
     }
 
     static public function registrarContacto() {
-        if(isset($_POST['usuario'])) {
+        if(isset($_POST['idTercero'])) {
 
             $datos = array(
                 "nombre" => $_POST['nombre'],

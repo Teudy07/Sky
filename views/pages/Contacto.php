@@ -22,12 +22,13 @@
                 <th>#</th>
                 <th>Nombre</th>
                 <th>Sexo</th>
+                <th>Telefono</th>
                 <th>estado</th>
                 <th class="text-center">Acciones</th>
             </tr>
         </thead>
 
-        <tbody>
+            <tbody>
 
         <?php 
             $contacto = new ContactoController();
