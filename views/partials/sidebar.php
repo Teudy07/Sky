@@ -72,7 +72,7 @@
 								<li>
 									<a href="#" class="has-ul"><i class="icon-cart"></i> <span>Ventas</span></a>
 									<ul class="hidden-ul">
-										<li><a href="./?View=Clientes">Clientes</a></li>
+										<li><a href="index.php?route=Contacto">Clientes</a></li>
 										<li><a href="">Realizar Ventas</a></li>
 										<li><a href="">Consultar Ventas del Dia</a></li>
 										<li><a href="a">Consultar Ventas por Fecha</a></li>

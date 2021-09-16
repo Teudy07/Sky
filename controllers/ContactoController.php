@@ -1,12 +1,12 @@
 <?php
 
-class UsuarioController {
-    static public function getUsuario() {
-        $resultado = UsuarioModel::getUsuario();
+class ContactoModel {
+    static public function getContacto() {
+        $resultado = ContactoModel::getContacto();
         return $resultado;
     }
 
-    static public function registrarUsuario() {
+    static public function registrarContacto() {
         if(isset($_POST['usuario'])) {
 
             $datos = array(
@@ -19,11 +19,12 @@ class UsuarioController {
                 "telefono" => $_POST['telefono'],
                 "rol" => $_POST['rol'],
                 "usuario" => $_POST['usuario'],
+                "clave" => $_POST['clave'],
                 "estado" => $_POST['estado'],
             );
             
             // print_r($datos);
-            $resultado = UsuarioModel::registrarUsuario($datos);
+            $resultado = ContactoModel::registrarContacto($datos);
             $_POST = null;
 
             if($resultado > 0) {

@@ -1,15 +1,13 @@
-
 <div class="panel panel-flat">
     <div class="breadcrumb-line">
         <ul class="breadcrumb">
-            <li><a href=""><i class="icon-home2 position-left"></i> Inicio</a></li>
-            <li><a href="javascript:;">Usuarios</a></li>
-            <li class="active">Usuarios del Sistema</li>
+            <li><a href="index.php?route=contacto"><i class="icon-home2 position-left"></i> Inicio</a></li>
+            <li><a href="javascript:;">Contactos</a></li>
         </ul>
     </div>
 
     <div class="panel-heading">
-        <h5 class="panel-title">Usuarios del Sistema</h5>
+        <h5 class="panel-title">Contactos</h5>
         <div class="heading-elements">
             <button type="button" class="btn btn-primary heading-btn" id="btnRegistrar" data-toggle="modal" data-target="#registroUsuarioModal">
                 <i class="icon-database-add"></i> Agregar Nuevo/a</button>
@@ -18,12 +16,10 @@
 </div>
 
 <div id="reload-div">
-    <table id="tbUsuarios" class="table datatable-basic table-xxs table-hover">
+    <table id="tbContacto" class="table datatable-basic table-xxs table-hover">
         <thead>
             <tr>
                 <th>#</th>
-                <th>Tipo de Usuario</th>
-                <th>Usuario</th>
                 <th>Nombre</th>
                 <th>Sexo</th>
                 <th>estado</th>
@@ -34,8 +30,8 @@
         <tbody>
 
         <?php 
-            $usuario = new UsuarioController();
-            $resultados = $usuario->getUsuario();
+            $contacto = new ContactoController();
+            $resultados = $contacto->getContacto();
 
             foreach($resultados as $index => $key) {
                 $indice = $index+1;
