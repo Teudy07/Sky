@@ -73,7 +73,7 @@ class UsuarioAjax {
             "rol" => $_POST['rol'],
             "usuario" => $_POST['usuario'],
             "clave" => $_POST['clave'],
-            "confirmarClave" => $_POST['confirmarClave'],
+            // "confirmarClave" => $_POST['confirmarClave'],
             "estado" => $_POST['estado'],
         );
 

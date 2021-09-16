@@ -91,6 +91,7 @@ class UsuarioModel {
         $idTelefono = $records[0]['idTelefono'];
         $idCorreo = $records[0]['idCorreo'];
         $idIdentificacion = $records[0]['idIdentificacion'];
+        $idPersona = $records[0]['idPersona'];
 
        if(count($records) > 0) {
         if($idIdentificacion > 0) {
@@ -129,10 +130,8 @@ class UsuarioModel {
            Conexion::conecion()->prepare("UPDATE persona p 
                                             SET p.nombre = '". $datos['nombre'] ."', 
                                             p.apellido = '". $datos['apellido'] ."', 
-                                            p.idSexo = ". $datos['sexo'] .", 
-                                            p.idTipoIdentificacion = ". $datos['tipoIdentificacion'] .", 
-                                            p.identificacion = '". $datos['identificacion'] ."' 
-                                          WHERE p.idPersona = ". $records[0]['idPersona'] ."")->execute();
+                                            p.idSexo = ". $datos['sexo'] ."
+                                          WHERE p.idPersona = ". $idPersona ."")->execute();
 
            $data = Conexion::conecion()->prepare("UPDATE usuario u SET u.idRol = ". $datos['rol'] .", u.usuario = '". $datos['usuario'] ."', u.clave = '". $datos['clave'] ."', u.activo = ". $datos['estado'] ." 
            WHERE u.idUsuario = ". $datos['idUsuario'] ."")->execute();

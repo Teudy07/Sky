@@ -8,6 +8,7 @@ class ContactoModel {
         $respuesta->execute();
         return $respuesta->fetchAll();
     }
+}
 /*
     static public function registrarContacto($datos) {
         $exec = Conexion::conecion();
