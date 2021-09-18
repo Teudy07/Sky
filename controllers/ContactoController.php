@@ -1,50 +1,47 @@
 <?php
 
-class ContactoModel {
-    static public function getContacto() {
-        $resultado = ContactoModel::getContacto();
+class ContactoController {
+    public function getContacto($parametro) {
+        $resultado = ContactoModel::getContacto($parametro);
         return $resultado;
     }
+    
+    static public function hola() {
+        echo "Hola desde el controlador";
+    }
+
 
     static public function registrarContacto() {
-        if(isset($_POST['usuario'])) {
+        $datos = array(
+            "nombre" => $_POST['nombre'],
+            "razonSocial" => $_POST['razonSocial'],
+            "tipoIdentificacion" => $_POST['tipoIdentificacion'],
+            "identificacion" => $_POST['identificacion'],
+            "correo" => $_POST['correo'],
+            "telefono" => $_POST['telefono'],
+            "esCliente" => isset($_POST['esCliente']) ? $_POST['esCliente'] : 0,
+            "esProveedor" => isset($_POST['esProveedor']) ? $_POST['esProveedor'] : 0,
+            "estado" => $_POST['estado'],
+        );
+        $contacto = new ContactoModel();
+        $resultado = $contacto->registrarContacto($datos);
 
-            $datos = array(
-                "nombre" => $_POST['nombre'],
-                "apellido" => $_POST['apellido'],
-                "tipoIdentificacion" => $_POST['tipoIdentificacion'],
-                "identificacion" => $_POST['identificacion'],
-                "sexo" => $_POST['sexo'],
-                "correo" => $_POST['correo'],
-                "telefono" => $_POST['telefono'],
-                "rol" => $_POST['rol'],
-                "usuario" => $_POST['usuario'],
-                "clave" => $_POST['clave'],
-                "estado" => $_POST['estado'],
+        if($resultado == 0) {
+            echo json_encode(
+                array(
+                    "error" => true,
+                    "exec" => "registro",
+                    "msg" => "Ah ocurrido un error",
+                )
+            ); 
+        } else {
+            echo json_encode(
+                array(
+                    "ssucess" => true,
+                    "exec" => "registro",
+                    "msg" => "Se ha registrado de forma correcta",
+                )
             );
-            
-            // print_r($datos);
-            $resultado = ContactoModel::registrarContacto($datos);
-            $_POST = null;
-
-            if($resultado > 0) {
-                echo '<script>
-                Swal.fire(
-                    "Notificacion!",
-                    "Se ha registrado de forma correcta!",
-                    "success"
-                );
-                </script>';
-            } else if($resultado == 0) {
-                echo '<script>
-                Swal.fire(
-                    "Notificacion!",
-                    "Ah ocurrido un errodo!",
-                    "success"
-                );
-                </script>';
-            }
-            // print_r($resultado);
         }
-    }
+    } 
 }

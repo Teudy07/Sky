@@ -44,8 +44,8 @@ require_once "controllers/ConsultaController.php";
 require_once "models/ConsultaModel.php";
 
 #Contacto
-require_once "controllers/UsuarioController.php";
-require_once "models/UsuarioModel.php";
+require_once "controllers/ContactoController.php";
+require_once "models/ContactoModel.php";
 
 
 $template = new TemplateController();

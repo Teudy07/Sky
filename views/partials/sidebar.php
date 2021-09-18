@@ -53,7 +53,7 @@
 									<a href="#" class="has-ul"><i class="icon-truck"></i> <span>Compras</span></a>
 									<ul class="hidden-ul">
 										<li><a href="">Realizar Compras</a></li>
-										<li><a href="">Proveedores</a></li>
+										<li><a href="index.php?route=Contacto&type=proveedor">Proveedores</a></li>
 										<li><a href="">Consultar Compras por Fecha</a></li>
 									</ul>
 								</li>
@@ -72,7 +72,7 @@
 								<li>
 									<a href="#" class="has-ul"><i class="icon-cart"></i> <span>Ventas</span></a>
 									<ul class="hidden-ul">
-										<li><a href="index.php?route=Contacto">Clientes</a></li>
+										<li><a href="index.php?route=Contacto&type=cliente">Clientes</a></li>
 										<li><a href="">Realizar Ventas</a></li>
 										<li><a href="">Consultar Ventas del Dia</a></li>
 										<li><a href="a">Consultar Ventas por Fecha</a></li>

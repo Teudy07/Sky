@@ -3,13 +3,46 @@
 require_once "Conexion.php";
 
 class ContactoModel {
-    static public function getContacto($item = null, $vale = null) {
-        $respuesta = Conexion::conecion()->prepare("SELECT * FROM contacto");
+    public function hola() {
+        echo "hola modelo";
+    }
+    public function getContacto($parametro) {
+        $condicion = '';
+
+        if($parametro->todo === false) {
+            if($parametro->esCliente) {
+                $condicion = " AND c.esCliente IS TRUE ";
+            } elseif($parametro->esProveedor) {
+                $condicion = " AND c.esProveedor IS TRUE ";
+            }
+        }
+
+        // echo $condicion;
+        $respuesta = Conexion::conecion()->prepare("
+        SELECT 
+            c.idContacto, 
+            c.nombre, 
+            c.razonSocial AS razon_social, 
+            CASE WHEN c.esCliente IS TRUE THEN 1 ELSE 0 END esCliente,
+            CASE WHEN c.esProveedor IS TRUE THEN 1 ELSE 0 END esProveedor,
+            c1.descripcion AS correo,
+            t.descripcion AS telefono,
+            tp.nombre AS tipoIdentificacion,
+            i.Identificacion AS identificacion,
+            CASE WHEN c.estado IS TRUE THEN 1 ELSE 0 END estado 
+        FROM contacto c 
+        INNER JOIN identificacion i ON c.idTercero = i.idTercero
+        INNER JOIN tipo tp ON i.idTipoIdentificacion = tp.idtipo
+        LEFT JOIN tercero_correo tc ON tc.idTercero = c.idTercero
+        LEFT JOIN correo c1 ON tc.idCorreo = c1.idCorreo
+        LEFT JOIN tercero_telefono tt ON tt.idTercero = c.idTercero
+        LEFT JOIN telefono t ON tt.idTelefono = t.idTelefono
+        WHERE 1 = 1 $condicion
+        ");
         $respuesta->execute();
         return $respuesta->fetchAll();
     }
-}
-/*
+
     static public function registrarContacto($datos) {
         $exec = Conexion::conecion();
         
@@ -20,12 +53,23 @@ class ContactoModel {
             $exec->exec("INSERT INTO tercero VALUES()");
             $idTercero =  $exec->lastInsertId();
 
-            $exec->exec("INSERT INTO persona(idTercero,nombre, apellido, idSexo)
-             VALUES($idTercero, '". $datos["nombre"] ."', '". $datos["apellido"] ."', ". $datos['sexo'] .")");
-            $idPersona = $exec->lastInsertId();
+            $stmt = $exec->prepare("INSERT INTO contacto(idTercero, esCliente, esProveedor, nombre, razonSocial, estado)
+             VALUES(:idTercero, :esCliente, :esProveedor, :nombre, :razonSocial, :estado)");
+             $stmt->bindParam(":idTercero", $idTercero, PDO::PARAM_INT);
+             $stmt->bindParam(":esCliente", $datos['esCliente'], PDO::PARAM_BOOL);
+             $stmt->bindParam(":esProveedor", $datos['esProveedor'], PDO::PARAM_BOOL);
+             $stmt->bindParam(":nombre", $datos['nombre'], PDO::PARAM_STR);
+             $stmt->bindParam(":razonSocial",$datos['razonSocial'], PDO::PARAM_STR);
+             $stmt->bindParam(":estado", $datos['estado'], PDO::PARAM_BOOL);
+             $stmt->execute();
+            $idContacto = $exec->lastInsertId();
 
-            $exec->prepare("INSERT INTO identificacion(idTercero, idTipoIdentificacion, Identificacion)
-            VALUES($idTercero, ". $datos["tipoIdentificacion"] .", '". $datos["identificacion"] ."')")->execute();
+            $stmt = $exec->prepare("INSERT INTO identificacion(idTercero, idTipoIdentificacion, Identificacion)
+            VALUES(:idTercero, :tipoIdentificacion, :identificacion)");
+             $stmt->bindParam(":idTercero", $idTercero, PDO::PARAM_INT);
+             $stmt->bindParam(":tipoIdentificacion", $datos['tipoIdentificacion'], PDO::PARAM_INT);
+             $stmt->bindParam(":identificacion", $datos['identificacion'], PDO::PARAM_INT);
+            $stmt->execute();
 
             if(isset($datos["telefono"]) && !empty($datos["telefono"])) {
                 $exec->exec("INSERT INTO telefono(descripcion)
@@ -45,18 +89,8 @@ class ContactoModel {
                 VALUES($idTercero, $idCorreo)");
             }
 
-            // echo "INSERT INTO persona(idTercero,nombre, apellido, idSexo, idTipoIdentificacion, identificacion)
-            // VALUES($idTercero, '". $datos["nombre"] ."', '". $datos["apellido"] ."', ". $datos['sexo'] .", ". $datos['tipoIdentificacion'] .", '". $datos['identificacion'] ."')";
-
-            // echo "INSERT INTO usuario(idPersona, idRol, usuario, clave, activo)
-            // VALUES($idPersona, ". $datos["rol"] .",'". $datos["usuario"] ."', '". $datos["clave"] ."', ". $datos['estado'] .")";
-
-            $exec->exec("INSERT INTO usuario(idPersona, idRol, usuario, clave, activo)
-             VALUES($idPersona, ". $datos["rol"] .",'". $datos["usuario"] ."', '". $datos["clave"] ."', ". $datos['estado'] .")");
-            $idUsuario = $exec->lastInsertId();
-
             $exec->commit();
-            return  $idUsuario;
+            return  $idContacto;
 
        } catch (PDOException $e) {
            //throw $th;
@@ -66,7 +100,7 @@ class ContactoModel {
        }
     }
 
-    static public function actualizarUsuario($datos) {
+    static public function actualizarContacto($datos) {
         
 
         $respuesta = Conexion::conecion()->prepare("
@@ -87,7 +121,6 @@ class ContactoModel {
         $respuesta->execute();
        $records = $respuesta->fetchAll();
 
-    //    print_r($records);
         $idTercero = $records[0]['idTercero'];
         $idTelefono = $records[0]['idTelefono'];
         $idCorreo = $records[0]['idCorreo'];
@@ -143,7 +176,7 @@ class ContactoModel {
         
     }
 
-    static public function eliminarUsuario($idUsuario) {
+    static public function eliminarContacto($idUsuario) {
         $respuesta = Conexion::conecion()->prepare("
             SELECT 
                 u.idUsuario,
@@ -185,4 +218,3 @@ class ContactoModel {
        return (count($records) > 0) ? true : false;
        }
 }
-*/
