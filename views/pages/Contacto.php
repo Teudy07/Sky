@@ -32,13 +32,9 @@
             <tr>
                 <th>#</th>
                 <th>Nombre</th>
-<<<<<<< HEAD
                 <th>Razon Social</th>
                 <th>Identificacion</th>
                 <th>Correo</th>
-=======
-                <th>Sexo</th>
->>>>>>> ec89a64d5b7cf6146c5c3ebc75c9145fd6738019
                 <th>Telefono</th>
                 <th>estado</th>
                 <th class="text-center">Acciones</th>
@@ -178,11 +174,11 @@
                                         <label for="">Referencia</label>
                                         <br>
                                         <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="checkbox" name="esCliente" id="esCliente" value="1">
+                                            <input class="form-check-input" type="checkbox" name="esCliente" id="esCliente" value="1" <?php if ($_GET['type'] == "cliente") { echo "checked='checked'"; } ?> >
                                             <label class="form-check-label" for="esCliente">Cliente</label>
                                         </div>
                                         <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="checkbox" name="esProveedor" id="esProveedor" value="1">
+                                            <input class="form-check-input" type="checkbox" name="esProveedor" id="esProveedor" value="1" <?php if ($_GET['type'] == "proveedor") { echo "checked='checked'"; } ?> >
                                             <label class="form-check-label" for="esProveedor">Proveedor</label>
                                         </div>
                                     </div>

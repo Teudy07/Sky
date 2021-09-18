@@ -43,10 +43,6 @@ class ContactoModel {
         return $respuesta->fetchAll();
     }
 
-<<<<<<< HEAD
-=======
-
->>>>>>> ec89a64d5b7cf6146c5c3ebc75c9145fd6738019
     static public function registrarContacto($datos) {
         $exec = Conexion::conecion();
         
@@ -93,19 +89,6 @@ class ContactoModel {
                 VALUES($idTercero, $idCorreo)");
             }
 
-<<<<<<< HEAD
-=======
-            // echo "INSERT INTO persona(idTercero,nombre, apellido, idSexo, idTipoIdentificacion, identificacion)
-            // VALUES($idTercero, '". $datos["nombre"] ."', '". $datos["apellido"] ."', ". $datos['sexo'] .", ". $datos['tipoIdentificacion'] .", '". $datos['identificacion'] ."')";
-
-            // echo "INSERT INTO usuario(idPersona, idRol, usuario, clave, activo)
-            // VALUES($idPersona, ". $datos["rol"] .",'". $datos["usuario"] ."', '". $datos["clave"] ."', ". $datos['estado'] .")";
-
-            $exec->exec("INSERT INTO contacto(idTercero, esCliente, esProveedor, nombre, razonsocial, estado)
-             VALUES($idTercero, ". $datos["esCliente"] .",'". $datos["esProveedor"] ."', '". $datos["nombre"] ."', '". $datos["razonsocial"] ."', ". $datos['estado'] .")");
-            $idContacto = $exec->lastInsertId();
-
->>>>>>> ec89a64d5b7cf6146c5c3ebc75c9145fd6738019
             $exec->commit();
             return  $idContacto;
 
@@ -116,13 +99,8 @@ class ContactoModel {
            throw new Exception('internal-database-error');
        }
     }
-<<<<<<< HEAD
 
     static public function actualizarContacto($datos) {
-=======
-/*
-    static public function actualizarUsuario($datos) {
->>>>>>> ec89a64d5b7cf6146c5c3ebc75c9145fd6738019
         
 
         $respuesta = Conexion::conecion()->prepare("
@@ -238,12 +216,5 @@ class ContactoModel {
        }
 
        return (count($records) > 0) ? true : false;
-<<<<<<< HEAD
        }
 }
-=======
-       
-    }
-    */
-}
->>>>>>> ec89a64d5b7cf6146c5c3ebc75c9145fd6738019
