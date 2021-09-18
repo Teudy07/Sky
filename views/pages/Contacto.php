@@ -32,16 +32,20 @@
             <tr>
                 <th>#</th>
                 <th>Nombre</th>
+<<<<<<< HEAD
                 <th>Razon Social</th>
                 <th>Identificacion</th>
                 <th>Correo</th>
+=======
+                <th>Sexo</th>
+>>>>>>> ec89a64d5b7cf6146c5c3ebc75c9145fd6738019
                 <th>Telefono</th>
                 <th>estado</th>
                 <th class="text-center">Acciones</th>
             </tr>
         </thead>
 
-        <tbody>
+            <tbody>
 
             <?php
             $parametro = new stdClass();
