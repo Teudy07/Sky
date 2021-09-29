@@ -7,9 +7,9 @@
 							<div class="media">
 
 								<div class="media-body">
-									<span class="media-heading text-semibold"> Usuario</span>
+									<span class="media-heading text-semibold"><?php echo $_SESSION["user"]?></span>
 									<div class="text-size-mini text-muted">
-										pendiente </div>
+										User Logged </div> 
 								</div>
 							</div>
 						</div>
@@ -24,14 +24,25 @@
 
 								<li class="active"><a href="index.php?route=home"><i class="icon-home4"></i> <span>Home</span></a>
 								</li>
+										<!-- Agenda -->
+								<li>
+									<a href="#" class="has-ul"><i class="icon-book"></i> <span>Agenda</span></a>
+									<ul class="hidden-ul">
+										<li><a href="index.php?route=Contacto&type=contacto">Contactos</a></li>
+									</ul>
+								</li>
+								<!-- /agenda -->
 
 								<!-- Almacen -->
 								<li>
 									<a href="#" class="has-ul"><i class="icon-box"></i> <span>Almacen</span></a>
 									<ul class="hidden-ul">
-										<li><a href="">Categoria</a></li>
-										<li><a href="">Marca</a></li>
-										<li><a href="mantenimientos.php">Producto</a></li>
+									<li><a href="">Articulo</a></li>
+									<li><a href="">Equipo</a></li>	
+									<li><a href="">Categoria</a></li>
+									<li><a href="">Marca</a></li>
+									<li><a href="">Consultar Productos</a></li>
+										
 									</ul>
 								</li>
 								<!-- /Almacen -->

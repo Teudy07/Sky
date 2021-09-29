@@ -1,14 +1,14 @@
 <?php
 $vars = get_defined_vars();  
 print_r($vars); 
+session_start();
 
 $email=$_POST["email"];
 $pass=$_POST["password"];
 
+
 include("conexion.php");
-$resultados = mysqli_query($conexion,"SELECT * FROM usuario_v");
-
-
+$resultados = mysqli_query($conexion,"SELECT * FROM usuario_v WHERE usuario = '$email'");
 $consulta = mysqli_fetch_array($resultados);
 
 if($consulta==true)
@@ -18,6 +18,7 @@ if($consulta==true)
 
     if($correo==$email and $contra==$pass)
     {
+        $_SESSION['user']=$correo;
         setcookie("usuario", $email, time()+(60*60*24*365));
         header ("Location: index.php?route=home");
     }

@@ -125,13 +125,13 @@
                                     <div class="col-6">
                                         <div class="form-group">
                                             <label for="nombreModal">Nombre</label>
-                                            <input type="text" name="nombre" class="form-control" id="nombre" placeholder="Ingrese el nombre" value="Teudy Soluciones" required>
+                                            <input type="text" name="nombre" class="form-control" id="nombre" placeholder="Ingrese el nombre" required>
                                         </div>
                                     </div>
                                     <div class="col-6">
                                         <div class="form-group">
                                             <label for="nombreModal">Razon Social</label>
-                                            <input type="text" name="razonSocial" class="form-control" id="razonSocial" placeholder="Ingrese la razon social" value="Teudy Soluciones S.R.L">
+                                            <input type="text" name="razonSocial" class="form-control" id="razonSocial" placeholder="Ingrese la razon social">
                                         </div>
                                     </div>
 
@@ -152,7 +152,7 @@
                                     <div class="col-6">
                                         <div class="form-group">
                                             <label for="nombreModal">Identificacion</label>
-                                            <input type="text" name="identificacion" class="form-control" id="identificacion" placeholder="identificacion"  value="03158468464" required>
+                                            <input type="text" name="identificacion" class="form-control" id="identificacion" placeholder="identificacion" required>
                                         </div>
                                     </div>
                                     <br>
@@ -160,13 +160,13 @@
                                     <div class="col-6">
                                         <div class="form-group">
                                             <label for="nombreModal">Correo</label>
-                                            <input type="email" name="correo" class="form-control" id="correo" placeholder="Correo electronico" value="corre@asdf.com" required>
+                                            <input type="email" name="correo" class="form-control" id="correo" placeholder="Correo electronico" required>
                                         </div>
                                     </div>
                                     <div class="col-6">
                                         <div class="form-group">
                                             <label for="nombreModal">Telefono</label>
-                                            <input type="text" name="telefono" class="form-control" id="telefono" placeholder="Numero telefonico" value="829-555-9999" required>
+                                            <input type="text" name="telefono" class="form-control" id="telefono" placeholder="Numero telefonico" required>
                                         </div>
                                     </div>
 
