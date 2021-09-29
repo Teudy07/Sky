@@ -1,7 +1,7 @@
 <?php
 
 class ContactoController {
-    public function getContacto($parametro) {
+    static public function getContacto($parametro) {
         $resultado = ContactoModel::getContacto($parametro);
         return $resultado;
     }

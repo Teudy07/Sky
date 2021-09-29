@@ -2,10 +2,44 @@
 
 require_once "Conexion.php";
 
-class ContactoModel {
+class ProductoModel {
     public function hola() {
         echo "hola modelo";
     }
+    static public function getMarcas() {
+
+        // echo $condicion;
+        $respuesta = Conexion::conecion()->prepare("
+        SELECT 
+            m.idmarca,
+            m.descripcion AS marca,
+            m.creado_en,
+            m.creado_por,
+            CASE WHEN m.estado IS TRUE THEN 1 ELSE 0 END AS activo 
+        FROM marca m
+        ");
+        $respuesta->execute();
+        return $respuesta->fetchAll();
+    }
+
+    static public function getModelos() {
+
+        // echo $condicion;
+        $respuesta = Conexion::conecion()->prepare("
+        SELECT md.idmodelo, 
+            md.idmarca,
+            mc.descripcion AS marca, 
+            md.descripcion AS modelo, 
+            md.creado_en,
+            md.creado_por,
+            CASE WHEN md.estado IS TRUE THEN 1 ELSE 0 END AS activo 
+        FROM modelo md
+        INNER JOIN marca mc ON mc.idmarca = md.idmarca;
+        ");
+        $respuesta->execute();
+        return $respuesta->fetchAll();
+    }
+
     static public function getContacto($parametro) {
         $condicion = '';
 
