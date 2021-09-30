@@ -17,7 +17,7 @@ require_once "models/ConsultaModel.php";
 require_once "controllers/ContactoController.php";
 require_once "models/ContactoModel.php";
 
-#Contacto
+#UnionProducto
 require_once "controllers/ProductoController.php";
 require_once "models/ProductoModel.php";
 

@@ -5,10 +5,6 @@ class ContactoController {
         $resultado = ContactoModel::getContacto($parametro);
         return $resultado;
     }
-    
-    static public function hola() {
-        echo "Hola desde el controlador";
-    }
 
 
     static public function registrarContacto() {

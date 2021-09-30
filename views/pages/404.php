@@ -7,7 +7,9 @@
     <title>Document</title>
 </head>
 <body>
-    
+    <br>
+    <br>
+    <br><br>
 <center><div class="content-wrapper pt-5">
     <section class="content">
       <div class="error-page">

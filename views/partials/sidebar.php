@@ -39,8 +39,9 @@
 									<ul class="hidden-ul">
 									<li><a href="">Articulo</a></li>
 									<li><a href="">Equipo</a></li>	
-									<li><a href="">Categoria</a></li>
-									<li><a href="">Marca</a></li>
+									<li><a href="">Unidad</a></li>
+									<li><a href="index.php?route=UnionProducto&type=marca">Marca</a></li>
+									<li><a href="index.php?route=UnionProducto&type=modelo">Modelo</a></li>
 									<li><a href="">Consultar Productos</a></li>
 										
 									</ul>
