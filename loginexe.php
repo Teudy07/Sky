@@ -19,6 +19,7 @@ if($consulta==true)
     if($correo==$email and $contra==$pass)
     {
         $_SESSION['user']=$correo;
+        $_SESSION['idUsuario']=$consulta['idUsuario'];;
         setcookie("usuario", $email, time()+(60*60*24*365));
         header ("Location: index.php?route=home");
     }

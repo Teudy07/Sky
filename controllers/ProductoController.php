@@ -1,5 +1,7 @@
 <?php
 
+// session_start();
+
 class ProductoController {
     /**
      * @descripcion Genera los records en la tabla
@@ -41,7 +43,7 @@ class ProductoController {
                                 </a>
                         
                                 <ul class="dropdown-menu dropdown-menu-right">
-                                    <li><a href="javascript:;" class="editarMarca" idmarca="' . $key["idmodelo"] . '" data-toggle="modal" data-target="#registroProductoModal">
+                                    <li><a href="javascript:;" class="editarMarca" idmarca="' . $key["idmarca"] . '" data-toggle="modal" data-target="#ModalformularioMarca">
                                             <i class="icon-pencil6 ">
                                             </i> Editar</a></li>
                                     <li><a href="javascript:;" data-toggle="modal" data-target="#modal_iconified" class="bg-danger eliminarMarca" idmarca="' . $key["idmarca"] . '">
@@ -99,10 +101,10 @@ class ProductoController {
                                 </a>
                         
                                 <ul class="dropdown-menu dropdown-menu-right">
-                                    <li><a href="javascript:;" class="editarContacto" idModelo="' . $key["idModelo"] . '" data-toggle="modal" data-target="#registroContactoModal">
+                                    <li><a href="javascript:;" class="editarContacto" idModelo="' . $key["idmodelo"] . '" data-toggle="modal" data-target="#ModalformularioModelo">
                                             <i class="icon-pencil6 ">
                                             </i> Editar</a></li>
-                                    <li><a href="javascript:;" data-toggle="modal" data-target="#modal_iconified" class="bg-danger eliminarUsuario" idContacto="' . $key["idModelo"] . '">
+                                    <li><a href="javascript:;" data-toggle="modal" data-target="#modal_iconified" class="bg-danger eliminarModelo eliminar " idModelo="' . $key["idmodelo"] . '">
                                             <i class=" icon-trash">
                                             </i> Eliminar</a></li>
                                 </ul>
@@ -113,6 +115,75 @@ class ProductoController {
             }
 
         return $html;
+    }
+
+    static public function registrarModelo() {
+        // print_r($_SESSION);
+        // print_r($_GET);
+        // print_r($_POST);
+
+        // die;
+        $datos = array(
+            "marca" => $_POST['marca'],
+            "modelo" => $_POST['modelo'],
+            "creado_por" => $_SESSION['idUsuario'],
+            "estado" => $_POST['estado'],
+        );
+        // print_r($datos);
+
+        $resultado = ProductoModel::registrarModelo($datos);
+        // print_r($resultado);
+
+        if($resultado == 0) {
+            echo json_encode(
+                array(
+                    "error" => true,
+                    "exec" => "registro",
+                    "msg" => "Ah ocurrido un error",
+                )
+            ); 
+        } else {
+            echo json_encode(
+                array(
+                    "ssucess" => true,
+                    "exec" => "registro",
+                    "msg" => "Se ha registrado de forma correcta",
+                )
+            );
+        }
+    }
+
+    static public function registrarMarca() {
+        // print_r($_SESSION);
+        // print_r($_GET);
+        // print_r($_POST);
+        $datos = array(
+            "marca" => $_POST['marca'],
+            "creado_por" => $_SESSION['idUsuario'],
+            "estado" => $_POST['estado'],
+        );
+        // print_r($datos);
+
+        $resultado = ProductoModel::registrarMarca($datos);
+        // print_r($resultado);
+
+        if($resultado == 0) {
+            echo json_encode(
+                array(
+                    "error" => true,
+                    "exec" => "registro",
+                    "msg" => "Ah ocurrido un error",
+                )
+            ); 
+        } else {
+            echo json_encode(
+                array(
+                    "ssucess" => true,
+                    "exec" => "registro",
+                    "msg" => "Se ha registrado de forma correcta",
+                )
+            );
+        }
     }
 
 }

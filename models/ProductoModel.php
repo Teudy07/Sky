@@ -45,26 +45,47 @@ class ProductoModel {
     static public function registrarMarca($datos) {
         $exec = Conexion::conecion();
         
-       try {
-              
+        try {  
                 $exec->beginTransaction();
-               
-                if(isset($datos["descripcion"]) && !empty($datos["descripcion"])) {
-                $exec->exec("INSERT INTO marca(descripcion)
-                VALUES('". $datos["descripcion"] ."')");
+                $idmarca = 0;
+
+                if(isset($datos["marca"]) && !empty($datos["marca"])) {
+                $exec->exec("INSERT INTO marca(descripcion, creado_por)
+                VALUES('". $datos["marca"] ."', ". $datos['creado_por'] .")");
                 $idmarca = $exec->lastInsertId();
-               
             }
-
-                $exec->commit();
-                return  $idmarca;
-
-       } catch (PDOException $e) {
+            $exec->commit();
+            return  $idmarca;
+        } catch (PDOException $e) {
            //throw $th;
            $exec->rollBack();
            echo "Ah ocurrido un error: " . $e->getMessage();
            throw new Exception('internal-database-error');
-       }
+        }
+    }
+
+    static public function registrarModelo($datos) {
+        // print_r($datos);
+        // die;
+        $exec = Conexion::conecion();
+        
+        try {  
+                $exec->beginTransaction();
+                $idmodelo = 0;
+
+                if(isset($datos["marca"]) && !empty($datos["marca"])) {
+                $exec->exec("INSERT INTO modelo(idmarca, descripcion, creado_por, estado)
+                VALUES(". $datos["marca"] .",'". $datos["modelo"] ."', ". $datos['creado_por'] .", ". $datos['estado']  .")");
+                $idmodelo = $exec->lastInsertId();
+            }
+            $exec->commit();
+            return  $idmodelo;
+        } catch (PDOException $e) {
+           //throw $th;
+           $exec->rollBack();
+           echo "Ah ocurrido un error: " . $e->getMessage();
+           throw new Exception('internal-database-error');
+        }
     }
     
 

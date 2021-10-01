@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 $controlador = trim( $_GET['c']);
 
 require_once "../controllers/".$controlador."Controller.php";
