@@ -59,8 +59,23 @@ $(function () {
   /**
    * EVENTO PARA ELIMINAR Marca
    */
-  $(".eliminarMarca").click(function () {
-    const idmarca = $(this).attr("idmarca");
+   $(".eliminar").click(function () {
+
+    //CAMTURANDO EL VALOR DEL REGISTRO DE LA TABLA 
+    let idDato = 0;
+    switch(type) {
+      case 'modelo':
+        idDato =  $(this).attr("idmodelo");
+        break;
+
+      case 'marca':
+        idDato =  $(this).attr("idmarca");
+        break;
+    }
+
+
+    // console.log(`Estoy en ${type} y voy a eliminar al: ${idDato}`);
+    // return;
 
     Swal.fire({
       title: "Estas seguro?",
@@ -74,9 +89,9 @@ $(function () {
     }).then((result) => {
       if (result.isConfirmed) {
         $.post(
-          "ajax/UnionProductoAjax.php?exec=eliminarMarca",
+          `ajax/index.php?c=Producto&m=${operacion.eliminar}`,
           {
-            idmarca: idmarca,
+            eliminar: idDato,
           },
           function (response) {
             if (response.success === true) {
