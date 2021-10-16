@@ -100,9 +100,10 @@ class ContactoModel {
        }
     }
 
-    static public function actualizarContacto($datos) {
-        
 
+
+    ///actualizarContacto
+    static public function actualizarContacto($datos) {
         $respuesta = Conexion::conecion()->prepare("
         SELECT 
             u.usuario,
@@ -176,6 +177,7 @@ class ContactoModel {
         
     }
 
+    /*
     static public function eliminarContacto($idUsuario) {
         $respuesta = Conexion::conecion()->prepare("
             SELECT 
@@ -216,5 +218,5 @@ class ContactoModel {
        }
 
        return (count($records) > 0) ? true : false;
-       }
+       }*/
 }
