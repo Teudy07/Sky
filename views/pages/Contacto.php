@@ -58,7 +58,7 @@
             }
 
             $contacto = new ContactoController();
-            $resultados = $contacto->getContacto($parametro);
+            $resultados = $contacto->getContactos($parametro);
             // print_r($_GET);
             foreach ($resultados as $index => $key) {
                 $indice = $index + 1;
@@ -119,7 +119,7 @@
 
                         <div class="card-body">
                             <div class="row">
-                                <input type="hidden" name="idConsorcio" id="idConsorcio">
+                                <input type="hidden" name="idContacto" id="idContacto">
                                 <div class="row">
 
                                     <div class="col-6">

@@ -9,6 +9,19 @@ $(function () {
 
 
   $('#btnRegistrar').click(function () {
+    $('#titulo').text('REGISTRANDO');
+    $('#idContacto').val("0");
+    $('#nombre').val('');
+    $('#razonSocial').val('');
+    $('#tipoIdentificacion').val('');
+    $('#identificacion').val('');
+    $('#correo').val('');
+    $('#telefono').val('');
+    $('#identificacion').val('');
+    // $('#esProveedor').prop('checked', Number(response[0].esProveedor) === 1 ? true : false);
+    // $('#esCliente').prop('checked', Number(response[0].esCliente) === 1 ? true : false);
+    $('#estado').val('1');
+
     console.log('registrando');
     //LIMPIANDO LOS CAMPOS
     // $('#idUsuario').val('0');
@@ -83,37 +96,52 @@ $(function () {
   /**
    * EVENTO PARA ACTUALIZAR USUARIO
    */
-  $(".editarUsuario").click(function () {
+  $(".editarContacto").click(function () {
     console.log("click editando");
 
     //CAMBIANDO EL TITULO DEL MODAL
     // $('#titulo').html('ACTUALIZANDO');
 
 
-    const idUsuario = $(this).attr("idusuario");
-    console.log(`idUsuario: ${idUsuario}`);
-    $('#idUsuario').val(idUsuario);
+    const idContacto = $(this).attr("idContacto");
+    console.log(`idContacto: ${idContacto}`);
+    $('#idContacto').val(idContacto);
     
-    const data = new FormData();
-    data.append('idUsario', idUsuario);
+    console.log('idContacto: ', idContacto);
+    // return;
 
-    $.post(
-      "ajax/UsuarioAjax.php?exec=getUsuario",
-      $("#formRegistrarContacto").serialize(),
+    $.get(
+      `ajax/index.php?c=Contacto&m=getContacto`,
+      {
+        idContacto: idContacto
+      },
       function (response) {
+        if(response.length > 0) {
+          $('#titulo').text('ACTUALIZANDO');
+          $('#idContacto').val(response[0].idContacto);
+          $('#nombre').val(response[0].nombre);
+          $('#razonSocial').val(response[0].razonSocial);
+          $('#tipoIdentificacion').val(response[0].idTipoIdentificacion);
+          $('#identificacion').val(response[0].identificacion);
+          $('#correo').val(response[0].correo);
+          $('#telefono').val(response[0].telefono);
+          $('#identificacion').val(response[0].Identificacion);
+          $('#esProveedor').prop('checked', Number(response[0].esProveedor) === 1 ? true : false);
+          $('#esCliente').prop('checked', Number(response[0].esCliente) === 1 ? true : false);
+          $('#estado').val(response[0].estado);
 
-        $("#idUsuario").val(response.idUsuario);
-        $("#nombre").val(response.nombre);
-        $("#apellido").val(response.apellido);
-        $("#tipoIdentificacion").val(response.idTipoIdentificacion);
-        $("#identificacion").val(response.identificacion);
-        $("#sexo").val(response.idSexo);
-        $("#correo").val(response.correo);
-        $("#telefono").val(response.telefono);
-        $("#rolModal").val(response.idRol);
-        $("#usuario").val(response.usuario);
-        $("#clave").val(response.clave);
-        $("#estado").val(response.estado);
+        } else {
+          Swal.fire(
+            "Notificacion!",
+            `Ah ocurrido un error!`,
+            "error"
+          ).then((result) => {
+              if (result.isConfirmed) {
+                  location.reload();
+              }
+          });
+        }
+        $('#idConsorcio').val()
         console.log("Response: ", response);
       },
       "json"
@@ -141,16 +169,16 @@ $(function () {
     var isvalid = $("#formRegistrarContacto").valid();
     if (isvalid) {
       e.preventDefault();
-        const exec = Number($('#idUsuario').val()) == 0 ? 'registrarUsuario' : 'actualizarUsuario';
+        const exec = Number($('#idContacto').val()) == 0 ? 'registrarContacto' : 'actualizarContacto';
 
         console.log('Exec: ', exec);
         // return;
       $.post(
-        `ajax/index.php?c=Contacto&m=registrarContacto`,
+        `ajax/index.php?c=Contacto&m=${exec}`,
         $("#formRegistrarContacto").serialize(),
         function (response) {
             // return;
-            if(response.ssucess) {
+            if(response.success) {
                 $('#formRegistrarContacto').hide();
                 Swal.fire(
                     "Notificacion!",
@@ -161,8 +189,18 @@ $(function () {
                         location.reload();
                     }
                 })    
+            } else {
+              Swal.fire(
+                "Notificacion!",
+                `Ah ocurrido un error, favor de comunicarse con Don Teudy alias Orochimaru!`,
+                "success"
+            ).then((result) => {
+                if (result.isConfirmed) {
+                    location.reload();
+                }
+            })    
             }
-          console.log("Response: ", response);
+          // console.log("Response: ", response);
         },
         "json"
       );
