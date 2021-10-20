@@ -1,11 +1,29 @@
 $(function () {
 
-  $('#tbUsuarios').DataTable( {
+  $('#tbContacto').DataTable( {
     dom: 'Bfrtip',
     buttons: [
         'copy', 'csv', 'excel', 'pdf', 'print'
     ]
   });
+
+  $('#pais').change(function () {
+    const idPais = $(this).val();
+    if(idPais > 0) {
+      $.get(
+        `ajax/index.php?c=Contacto&m=getProvincia`,
+        {idPais: idPais},
+        function (response) {
+          $('#provincia').html(response.html);
+        console.log('respuesta: ', response);
+        },
+        "json"
+      );
+    }
+    console.log('idpais haciendo referencia: ', $('#pais').val());
+    console.log('idpais: propiedad del evento', $(this).val());
+  });
+
 
 
   $('#btnRegistrar').click(function () {
@@ -94,7 +112,7 @@ $(function () {
 
 
   /**
-   * EVENTO PARA ACTUALIZAR USUARIO
+   * EVENTO PARA ACTUALIZAR Contacto
    */
   $(".editarContacto").click(function () {
     console.log("click editando");

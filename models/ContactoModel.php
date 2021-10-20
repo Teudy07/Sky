@@ -203,6 +203,19 @@ class ContactoModel
         }
     }
 
+    static public function getProvincia($idPais) {
+        
+        $respuesta = Conexion::conecion()->prepare(
+            "SELECT p.idprovincia, p.idpais,p.descripcion FROM provincia p
+             WHERE p.idpais = $idPais AND p.estado IS TRUE"
+        );
+
+        $respuesta->execute();
+
+        return $respuesta->fetchAll();
+    }
+
+
     /*
     static public function eliminarContacto($idUsuario) {
         $respuesta = Conexion::conecion()->prepare("

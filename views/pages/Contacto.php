@@ -34,6 +34,7 @@
                 <th>Nombre</th>
                 <th>Razon Social</th>
                 <th>Identificacion</th>
+                <th>Direccion</th>
                 <th>Correo</th>
                 <th>Telefono</th>
                 <th>estado</th>
@@ -73,6 +74,7 @@
                         <td> ' . $key["nombre"] . ' </td>
                         <td> ' . $key["razon_social"] . ' </td>
                         <td> ' . $key["identificacion"] . ' </td>
+                        <td> ' . $key["pais"] . ' </td>
                         <td> ' . $key["correo"] . ' </td>
                         <td> ' . $key["telefono"] . ' </td>
                         <td> ' . $estado . ' </td>
@@ -88,9 +90,6 @@
                                         <li><a href="javascript:;" class="editarContacto" idContacto="' . $key["idContacto"] . '" data-toggle="modal" data-target="#registroContactoModal">
                                                 <i class="icon-pencil6 ">
                                                 </i> Editar</a></li>
-                                        <li><a href="javascript:;" data-toggle="modal" data-target="#modal_iconified" class="bg-danger eliminarUsuario" idContacto="' . $key["idContacto"] . '">
-                                                <i class=" icon-trash">
-                                                </i> Eliminar</a></li>
                                     </ul>
                                 </li>
                             </ul> 
@@ -156,6 +155,42 @@
                                         </div>
                                     </div>
                                     <br>
+                                    <div class="col-6-lg col-xl-6 col-sm-12">
+                                        <div class="form-group">
+                                            <label>Pais</label>
+                                            <select class="form-control" name="pais" id="pais">
+                                                <option value="0" disabled selected>Seleccione un Pais</option>
+                                                <?php
+                                                    $pais = ConsultaController::getDatos("pais", "estado" , true);
+                                                    foreach ($pais as $index => $key) {
+                                                        echo "<option value=" . $key['idpais'] . " >" . $key['descripcion'] . "</option>";
+                                                    }
+                                                ?>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-6-lg col-xl-6 col-sm-12">
+                                        <div class="form-group">
+                                            <label>Provincia</label>
+                                            <select class="form-control" name="provincia" id="provincia">
+                                                <option value="" disabled>Seleccione una Provincia</option>
+                                                <?php
+                                                $provincia = ConsultaController::getDatos("provincia", "idpais" , 1);
+                                                foreach ($provincia as $index => $key) {
+                                                    echo "<option value=" . $key['idprovincia'] . " >" . $key['descripcion'] . "</option>";
+                                                }
+                                                ?>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label for="nombreModal">Direccion</label>
+                                            <input type="text" name="correo" class="form-control" id="direccion" placeholder="direccion" required>
+                                        </div>
+                                    </div>
+                        
                                     <!-- <hr Style='background-color: black'> -->
                                     <div class="col-6">
                                         <div class="form-group">

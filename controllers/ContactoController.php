@@ -75,4 +75,22 @@ class ContactoController {
         //     );
         // }
     } 
+
+
+    ///here
+    static public function getProvincia() {
+    
+        $idPais = $_GET['idPais'];
+      
+        $resultado = ContactoModel::getProvincia($idPais);
+       
+        $html = '<option value="">Seleccione una opción</option>';
+
+        foreach($resultado as $key) {
+            $html .= "<option value='". $key['idprovincia'] ."'>". $key['descripcion'] ."</option>";
+        }
+
+        echo json_encode(array("html" => $html));
+        
+    }
 }
