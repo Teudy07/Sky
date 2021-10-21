@@ -62,7 +62,7 @@
                   <i class="fa fa-user "></i> 
                   USUARIO
                   </label>
-                  <input type="text" class="form-control" id="email" name="email" placeholder="Ingresa tu usuario" required>
+                  <input type="text" class="form-control" id="email" name="email" placeholder="Ingresa tu usuario" value="teudy07" required>
                 </div>
 
                 <!-- Password -->
@@ -71,7 +71,7 @@
                   <i class="fa fa-lock"></i>  
                   CONTRASEÑA
                   </label>
-                  <input type="password" class="form-control" id="password" name="password" placeholder="Ingresa tu contraseña" required>
+                  <input type="password" class="form-control" id="password" name="password" placeholder="Ingresa tu contraseña" value="123" required>
                 </div>
                 <br>
                 <!-- Submit -->

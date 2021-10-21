@@ -20,6 +20,9 @@ class ContactoController {
             "razonSocial" => $_POST['razonSocial'],
             "tipoIdentificacion" => $_POST['tipoIdentificacion'],
             "identificacion" => $_POST['identificacion'],
+            "direccion" => $_POST['direccion'],
+            "pais" => $_POST['pais'],
+            "provincia" => $_POST['provincia'],
             "correo" => $_POST['correo'],
             "telefono" => $_POST['telefono'],
             "esCliente" => isset($_POST['esCliente']) ? $_POST['esCliente'] : 0,
@@ -44,6 +47,9 @@ class ContactoController {
             "razonSocial" => $_POST['razonSocial'],
             "tipoIdentificacion" => $_POST['tipoIdentificacion'],
             "identificacion" => $_POST['identificacion'],
+            "direccion" => $_POST['direccion'],
+            "pais" => $_POST['pais'],
+            "provincia" => $_POST['provincia'],
             "correo" => $_POST['correo'],
             "telefono" => $_POST['telefono'],
             "esCliente" => isset($_POST['esCliente']) ? $_POST['esCliente'] : 0,
@@ -84,7 +90,7 @@ class ContactoController {
       
         $resultado = ContactoModel::getProvincia($idPais);
        
-        $html = '<option value="">Seleccione una opción</option>';
+        $html = '<option value="">Seleccione una Opcion</option>';
 
         foreach($resultado as $key) {
             $html .= "<option value='". $key['idprovincia'] ."'>". $key['descripcion'] ."</option>";

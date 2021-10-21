@@ -28,6 +28,9 @@ class ContactoModel
             c.razonSocial AS razon_social, 
             CASE WHEN c.esCliente IS TRUE THEN 1 ELSE 0 END esCliente,
             CASE WHEN c.esProveedor IS TRUE THEN 1 ELSE 0 END esProveedor,
+            d1.descripcion AS Direccion,
+            p.descripcion as Pais,
+            pr.descripcion as Provincia,
             c1.descripcion AS correo,
             t.descripcion AS telefono,
             tp.nombre AS tipoIdentificacion,
@@ -36,6 +39,10 @@ class ContactoModel
         FROM contacto c 
         INNER JOIN identificacion i ON c.idTercero = i.idTercero
         INNER JOIN tipo tp ON i.idTipoIdentificacion = tp.idtipo
+        LEFT JOIN tercero_direccion td ON td.idTercero = c.idTercero
+        LEFT JOIN direccion d1 ON td.idDireccion = d1.idDireccion
+        LEFT JOIN pais p ON d1.idpais = p.idpais
+        LEFT JOIN provincia pr ON d1.idprovincia = pr.idprovincia
         LEFT JOIN tercero_correo tc ON tc.idTercero = c.idTercero
         LEFT JOIN correo c1 ON tc.idCorreo = c1.idCorreo
         LEFT JOIN tercero_telefono tt ON tt.idTercero = c.idTercero
@@ -50,29 +57,37 @@ class ContactoModel
     {
         $respuesta = Conexion::conecion()->prepare(
             "SELECT 
-                c.idContacto,
-                c.idTercero,
-                c.nombre,
-                c.razonSocial,
-                c.esCliente,
-                c.esProveedor,
-                tt.idTelefono,
-                t.descripcion AS telefono,
-                tc.idCorreo,
-                cr.descripcion AS correo,
-                i.idIdentificacion,
-                i.idTipoIdentificacion,
-                i.Identificacion,
-                td.idDireccion,
-                c.estado
-            FROM contacto c
-            LEFT JOIN tercero_telefono tt ON tt.idTercero = c.idTercero
-            LEFT JOIN telefono t ON tt.idTelefono = t.idTelefono
-            LEFT JOIN tercero_correo tc ON tc.idTercero = c.idTercero
-            LEFT JOIN correo cr ON cr.idCorreo = tc.idCorreo
-            LEFT JOIN identificacion i ON i.idTercero = c.idTercero
-            LEFT JOIN tercero_direccion td ON td.idTercero = c.idTercero
-            WHERE c.idContacto = :idContacto"
+            c.idContacto,
+            c.idTercero,
+            c.nombre,
+            c.razonSocial,
+            c.esCliente,
+            c.esProveedor,
+            COALESCE(tt.idTelefono,0) idTelefono,
+            t.descripcion AS telefono,
+             COALESCE(tc.idCorreo,0) idCorreo,
+            cr.descripcion AS correo,
+            i.idIdentificacion,
+            i.idTipoIdentificacion,
+            i.Identificacion,
+            COALESCE(tcd.idDireccion,0) idDireccion,
+            d.descripcion AS direccion,
+            p.idprovincia,
+            p.descripcion AS Provincia,
+            p1.idpais,
+            p1.descripcion AS Pais,
+            c.estado
+        FROM contacto c
+        LEFT JOIN tercero_telefono tt ON tt.idTercero = c.idTercero
+        LEFT JOIN telefono t ON tt.idTelefono = t.idTelefono
+        LEFT JOIN tercero_correo tc ON tc.idTercero = c.idTercero
+        LEFT JOIN correo cr ON cr.idCorreo = tc.idCorreo
+        LEFT JOIN identificacion i ON i.idTercero = c.idTercero
+        LEFT JOIN tercero_direccion tcd ON tcd.idTercero = c.idTercero
+        LEFT JOIN direccion d ON tcd.idDireccion = d.idDireccion
+        LEFT JOIN provincia p ON d.idprovincia = p.idprovincia
+        LEFT JOIN pais p1 ON d.idpais = p1.idpais
+        WHERE c.idContacto = :idContacto"
         );
         $respuesta->bindParam(":idContacto", $idContacto, PDO::PARAM_INT);
         $respuesta->execute();
@@ -109,6 +124,19 @@ class ContactoModel
             $stmt->bindParam(":identificacion", $datos['identificacion'], PDO::PARAM_INT);
             $stmt->execute();
 
+            $stmt = $exec->prepare("INSERT INTO direccion(descripcion, idprovincia, idpais, estado)
+            VALUES(:descripcion, :idprovincia, :idpais, :estado)");
+            $stmt->bindParam(":descripcion", $datos['direccion'], PDO::PARAM_STR);
+            $stmt->bindParam(":idprovincia", $datos['provincia'], PDO::PARAM_INT);
+            $stmt->bindParam(":idpais", $datos['pais'], PDO::PARAM_INT);
+            $stmt->bindParam(":estado", $datos['estado'], PDO::PARAM_BOOL);
+            $stmt->execute();
+            $idDireccion = $exec->lastInsertId();
+
+            $exec->exec("INSERT INTO tercero_direccion(idTercero, idDireccion)
+            VALUES($idTercero, $idDireccion)");
+            
+         
             if (isset($datos["telefono"]) && !empty($datos["telefono"])) {
                 $exec->exec("INSERT INTO telefono(descripcion)
                 VALUES('" . $datos["telefono"] . "')");
@@ -118,6 +146,7 @@ class ContactoModel
                 VALUES($idTercero, $idTelefono)");
             }
 
+
             if (isset($datos["correo"]) && !empty($datos["correo"])) {
                 $exec->exec("INSERT INTO correo(descripcion)
                 VALUES('" . $datos["correo"] . "')");
@@ -126,6 +155,7 @@ class ContactoModel
                 $exec->exec("INSERT INTO tercero_correo(idTercero, idCorreo)
                 VALUES($idTercero, $idCorreo)");
             }
+
 
             $exec->commit();
             return  $idContacto;
@@ -142,69 +172,95 @@ class ContactoModel
     ///actualizarContacto
     static public function actualizarContacto($datos)
     {
+        try {
+            $resultados = ContactoModel::getContacto($datos['idContacto']);
 
-        $resultados = ContactoModel::getContacto($datos['idContacto']);
-
-        if (count($resultados) > 0) {
-            // print_r($resultados);
-
-            $idTercero = $resultados[0]['idTercero'];
-            $idTelefono = $resultados[0]['idTelefono'];
-            $idCorreo = $resultados[0]['idCorreo'];
-            $idIdentificacion = $resultados[0]['idIdentificacion'];
-
-            if ($idIdentificacion > 0) {
-                Conexion::conecion()->prepare("UPDATE identificacion SET Identificacion = '" . $datos['identificacion'] . "' WHERE idIdentificacion = " . $idIdentificacion . "")->execute();
-            } else {
-                $stmt = Conexion::conecion();
-                $stmt->prepare("INSERT INTO identificacion(idTercero, idTipoIdentificacion, Identificacion)
-            VALUES($idTercero, " . $datos["tipoIdentificacion"] . ", '" . $datos["identificacion"] . "')")->execute();
+            if (count($resultados) > 0) {
+                // print_r($resultados);
+    
+                $idTercero = $resultados[0]['idTercero'];
+                $idTelefono = $resultados[0]['idTelefono'];
+                $idCorreo = $resultados[0]['idCorreo'];
+                $idIdentificacion = $resultados[0]['idIdentificacion'];
+                $idDireccion = $resultados[0]['idDireccion'];
+    
+                if ($idIdentificacion > 0) {
+                    Conexion::conecion()->prepare("UPDATE identificacion SET Identificacion = '" . $datos['identificacion'] . "' WHERE idIdentificacion = " . $idIdentificacion . "")->execute();
+                } else {
+                    $stmt = Conexion::conecion();
+                    $stmt->prepare("INSERT INTO identificacion(idTercero, idTipoIdentificacion, Identificacion)
+                VALUES($idTercero, " . $datos["tipoIdentificacion"] . ", '" . $datos["identificacion"] . "')")->execute();
+                }
+    
+                if ($idTercero > 0) {
+                    Conexion::conecion()->prepare("UPDATE telefono SET descripcion = '" . $datos['telefono'] . "' WHERE idTelefono = " . $idTelefono . "")->execute();
+                } else {
+                    $stmt = Conexion::conecion();
+                    $respuesta = $stmt->prepare("INSERT INTO telefono(descripcion)
+                    VALUES('" . $datos["telefono"] . "')")->execute();
+                    $idTelefono = $stmt->lastInsertId();
+    
+                    $stmt->prepare("INSERT INTO tercero_telefono(idTercero, idTelefono)
+                    VALUES($idTercero, $idTelefono)")->execute();
+                }
+    
+    
+                if ($idCorreo > 0) {
+                    Conexion::conecion()->prepare("UPDATE correo SET descripcion = '" . $datos['correo'] . "' WHERE idCorreo = " . $idCorreo . "")->execute();
+                } else {
+                    $stmt = Conexion::conecion();
+                    $respuesta = $stmt->prepare("INSERT INTO correo(descripcion)
+                    VALUES('" . $datos["correo"] . "')")->execute();
+                    $idCorreo = $stmt->lastInsertId();
+    
+                    $stmt->prepare("INSERT INTO tercero_correo(idTercero, idCorreo)
+                    VALUES($idTercero, $idCorreo)")->execute();
+                }
+                   if ($idIdentificacion > 0) {
+                    Conexion::conecion()->prepare("UPDATE identificacion SET Identificacion = '" . $datos['identificacion'] . "' WHERE idIdentificacion = " . $idIdentificacion . "")->execute();
+                } else {
+                    $stmt = Conexion::conecion();
+                    $stmt->prepare("INSERT INTO identificacion(idTercero, idTipoIdentificacion, Identificacion)
+                VALUES($idTercero, " . $datos["tipoIdentificacion"] . ", '" . $datos["identificacion"] . "')")->execute();
+                }
+    
+                if ($idDireccion > 0) {
+                    Conexion::conecion()->prepare("UPDATE direccion d
+                    SET d.descripcion = '" . $datos['direccion'] . "',
+                        d.idprovincia = '" . $datos['provincia'] . "', 
+                        d.idpais = '" . $datos['pais'] . "',
+                        d.estado = '" . $datos['estado'] . "                  
+                       WHERE idDireccion = " . $idDireccion . "")->execute();
+    
+                } else {
+    
+                    $stmt = Conexion::conecion();
+                    $respuesta = $stmt->prepare("INSERT INTO direccion(descripcion, idprovincia, idpais, estado)
+                    VALUES(" . $datos["descripcion"] . ", '" . $datos["idprovincia"] . "', '" . $datos["idpais"] . "', '" . $datos["estado"] . "')")->execute();
+                    $idDireccion = $stmt->lastInsertId();
+                    
+                    $stmt->prepare("INSERT INTO tercero_direccion(idTercero, idDireccion)
+                    VALUES($idTercero, $idDireccion)")->execute();
+                }
+    
+                $dato = Conexion::conecion()->prepare("UPDATE contacto c 
+                                                SET c.nombre = '" . $datos['nombre'] . "', 
+                                                    c.razonSocial = '" . $datos['razonSocial'] . "',
+                                                    c.esCliente = " . $datos['esCliente'] . ",
+                                                    c.esProveedor = " . $datos['esProveedor'] . ",
+                                                    c.estado = " . $datos['estado'] . "
+                                              WHERE c.idContacto = " . $resultados[0]['idContacto'] . "")->execute();
+    
+                return $dato;
             }
-
-            if ($idTercero > 0) {
-                Conexion::conecion()->prepare("UPDATE telefono SET descripcion = '" . $datos['telefono'] . "' WHERE idTelefono = " . $idTelefono . "")->execute();
-            } else {
-                $stmt = Conexion::conecion();
-                $respuesta = $stmt->prepare("INSERT INTO telefono(descripcion)
-                VALUES('" . $datos["telefono"] . "')")->execute();
-                $idTelefono = $stmt->lastInsertId();
-
-                $stmt->prepare("INSERT INTO tercero_telefono(idTercero, idTelefono)
-                VALUES($idTercero, $idTelefono)")->execute();
-            }
-
-
-            if ($idCorreo > 0) {
-                Conexion::conecion()->prepare("UPDATE correo SET descripcion = '" . $datos['correo'] . "' WHERE idCorreo = " . $idCorreo . "")->execute();
-            } else {
-                $stmt = Conexion::conecion();
-                $respuesta = $stmt->prepare("INSERT INTO correo(descripcion)
-                VALUES('" . $datos["correo"] . "')")->execute();
-                $idCorreo = $stmt->lastInsertId();
-
-                $stmt->prepare("INSERT INTO tercero_correo(idTercero, idCorreo)
-                VALUES($idTercero, $idCorreo)")->execute();
-            }
-
-        //     echo "UPDATE contacto c 
-        //     SET c.nombre = '" . $datos['nombre'] . "', 
-        //     c.razonSocial = '" . $datos['razonSocial'] . "'
-        //   WHERE c.idContacto = " . $resultados[0]['idContacto'] . "";
-
-            $dato = Conexion::conecion()->prepare("UPDATE contacto c 
-                                            SET c.nombre = '" . $datos['nombre'] . "', 
-                                                c.razonSocial = '" . $datos['razonSocial'] . "',
-                                                c.esCliente = " . $datos['esCliente'] . ",
-                                                c.esProveedor = " . $datos['esProveedor'] . ",
-                                                c.estado = " . $datos['estado'] . "
-                                          WHERE c.idContacto = " . $resultados[0]['idContacto'] . "")->execute();
-
-            return $dato;
+        } catch (PDOException $th) {
+            print "Ah ocurrido un error: " . $th->getMessage();
+            // throw $th;
         }
     }
 
     static public function getProvincia($idPais) {
-        
+
         $respuesta = Conexion::conecion()->prepare(
             "SELECT p.idprovincia, p.idpais,p.descripcion FROM provincia p
              WHERE p.idpais = $idPais AND p.estado IS TRUE"

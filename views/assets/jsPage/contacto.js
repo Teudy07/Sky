@@ -1,3 +1,5 @@
+
+//Funcion para la tabla imprimir etc.
 $(function () {
 
   $('#tbContacto').DataTable( {
@@ -6,7 +8,9 @@ $(function () {
         'copy', 'csv', 'excel', 'pdf', 'print'
     ]
   });
+/////////////////////
 
+////Funcion change provincia segun pais
   $('#pais').change(function () {
     const idPais = $(this).val();
     if(idPais > 0) {
@@ -23,9 +27,11 @@ $(function () {
     console.log('idpais haciendo referencia: ', $('#pais').val());
     console.log('idpais: propiedad del evento', $(this).val());
   });
+//////
 
 
 
+///funcion registrar
   $('#btnRegistrar').click(function () {
     $('#titulo').text('REGISTRANDO');
     $('#idContacto').val("0");
@@ -33,11 +39,12 @@ $(function () {
     $('#razonSocial').val('');
     $('#tipoIdentificacion').val('');
     $('#identificacion').val('');
+    $('#direccion').val('');
+    $('#provincia').val('');
+    $('#pais').val('');
     $('#correo').val('');
     $('#telefono').val('');
     $('#identificacion').val('');
-    // $('#esProveedor').prop('checked', Number(response[0].esProveedor) === 1 ? true : false);
-    // $('#esCliente').prop('checked', Number(response[0].esCliente) === 1 ? true : false);
     $('#estado').val('1');
 
     console.log('registrando');
@@ -60,73 +67,19 @@ $(function () {
   });
 
 
-  /**
-   * VENTO PARA ELIMINAR USUARIO
-   */
-   $(".eliminarUsuario").click(function () {
-     const idUsuario = $(this).attr("idusuario");
-
-     Swal.fire({
-      title: 'Estas seguro?',
-      text: "Estas seguro que deseas eliminarlo!",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Si, Eliminarlo!',
-      cancelButtonText: 'Cancelar'
-    }).then((result) => {
-      if (result.isConfirmed) {
-
-        $.post(
-          "ajax/UsuarioAjax.php?exec=eliminarUsuario",
-          {
-            idUsuario: idUsuario
-          },
-          function (response) {
-    
-            if(response.success === true) {
-              Swal.fire(
-                'Eliminado!',
-                `${response.msg}`,
-                'success'
-              ).then((result) => {
-                if(result.isConfirmed) {
-                  location.reload();
-                }
-              })
-            } else {
-              Swal.fire({
-                icon: 'error',
-                title: 'Error',
-                text: 'Ah ocurrido un error, comunique con el administrador!!',
-              })
-            }
-            console.log("Response: ", response);
-          },
-          "json"
-        );
-      }
-  });
-});
-
+ 
 
   /**
-   * EVENTO PARA ACTUALIZAR Contacto
+   * ACTUALIZAR Contacto
    */
   $(".editarContacto").click(function () {
     console.log("click editando");
-
-    //CAMBIANDO EL TITULO DEL MODAL
-    // $('#titulo').html('ACTUALIZANDO');
-
 
     const idContacto = $(this).attr("idContacto");
     console.log(`idContacto: ${idContacto}`);
     $('#idContacto').val(idContacto);
     
     console.log('idContacto: ', idContacto);
-    // return;
 
     $.get(
       `ajax/index.php?c=Contacto&m=getContacto`,
@@ -141,6 +94,15 @@ $(function () {
           $('#razonSocial').val(response[0].razonSocial);
           $('#tipoIdentificacion').val(response[0].idTipoIdentificacion);
           $('#identificacion').val(response[0].identificacion);
+          $('#direccion').val(response[0].direccion);
+
+          $('#pais').val(response[0].idpais);
+          $('#pais').change();
+
+          setTimeout(() => {
+            $('#provincia').val(response[0].idprovincia);
+          },200);
+
           $('#correo').val(response[0].correo);
           $('#telefono').val(response[0].telefono);
           $('#identificacion').val(response[0].Identificacion);
@@ -168,7 +130,7 @@ $(function () {
 
   $("#formRegistrarContacto").validate({
     invalidHandler: function (event, validator) {
-      // 'this' refers to the form
+    
       var errors = validator.numberOfInvalids();
       if (errors) {
         var message =
@@ -218,7 +180,6 @@ $(function () {
                 }
             })    
             }
-          // console.log("Response: ", response);
         },
         "json"
       );
@@ -228,47 +189,3 @@ $(function () {
 });
 
 
-// $.ajax({
-//   url:"ajax/UsuarioAjax.php?exec=getUsuario",
-//   type:"POST",
-//   headers: { 
-//     "Accept" : "application/json; charset=utf-8",
-//     "Content-Type": "application/json; charset=utf-8"
-//   },
-//   data:$("#formRegistrarUsuario").serialize(),
-//   dataType:"text",
-// success: function(result){
-//  console.log('data: ', result)
-// }});
-
-
-
-
-// $.ajax({
-//   url:"ajax/UsuarioAjax.php?exec=getUsuario",
-//   type:"POST",
-//   headers: { 
-//     "Accept" : "application/json; charset=utf-8",
-//     "Content-Type": "application/x-www-form-urlencoded"
-//   },
-//   data: $('#formRegistrarUsuario').serialize(),
-//   dataType:"text",
-// success: function(result){
-//  console.log('data: ', result)
-// }});
-
-
-
-
-// $.ajax({
-//   url:"ajax/UsuarioAjax.php?exec=getUsuario",
-//   type:"POST",
-//   headers: { 
-//     "Accept" : "application/json; charset=utf-8",
-//     "Content-Type": "application/x-www-form-urlencoded"
-//   },
-//   data: $('#formRegistrarUsuario').serialize(),
-//   dataType:"json",
-// success: function(result){
-//  console.log('data: ', result)
-// }});

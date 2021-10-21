@@ -60,7 +60,6 @@
 
             $contacto = new ContactoController();
             $resultados = $contacto->getContactos($parametro);
-            // print_r($_GET);
             foreach ($resultados as $index => $key) {
                 $indice = $index + 1;
                 $estado  = ($key["estado"] == 1) ? '<span class="label label-success label-rounded">
@@ -74,7 +73,7 @@
                         <td> ' . $key["nombre"] . ' </td>
                         <td> ' . $key["razon_social"] . ' </td>
                         <td> ' . $key["identificacion"] . ' </td>
-                        <td> ' . $key["pais"] . ' </td>
+                        <td> ' . $key["Direccion"] . ' </td>
                         <td> ' . $key["correo"] . ' </td>
                         <td> ' . $key["telefono"] . ' </td>
                         <td> ' . $estado . ' </td>
@@ -138,7 +137,7 @@
                                         <div class="form-group">
                                             <label>Tipo Identificacion</label>
                                             <select class="form-control select2bs4" name="tipoIdentificacion" id="tipoIdentificacion" required>
-                                                <option value="" disabled selected>Seleccione una opcion</option>
+                                                <option value="" disabled>Seleccione una opcion</option>
                                                 <?php
                                                 $identificacion = ConsultaController::getDatos("tipo", "tipo", "identificacion");
                                                 foreach ($identificacion as $index => $key) {
@@ -155,11 +154,19 @@
                                         </div>
                                     </div>
                                     <br>
+                            
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label for="nombreModal">Direccion</label>
+                                            <input type="text" name="direccion" class="form-control" id="direccion" placeholder="direccion" required>
+                                        </div>
+                                    </div>
+
                                     <div class="col-6-lg col-xl-6 col-sm-12">
                                         <div class="form-group">
                                             <label>Pais</label>
                                             <select class="form-control" name="pais" id="pais">
-                                                <option value="0" disabled selected>Seleccione un Pais</option>
+                                                <option value="" disabled selected >Seleccione un Pais</option>
                                                 <?php
                                                     $pais = ConsultaController::getDatos("pais", "estado" , true);
                                                     foreach ($pais as $index => $key) {
@@ -169,11 +176,12 @@
                                             </select>
                                         </div>
                                     </div>
+
                                     <div class="col-6-lg col-xl-6 col-sm-12">
                                         <div class="form-group">
                                             <label>Provincia</label>
                                             <select class="form-control" name="provincia" id="provincia">
-                                                <option value="" disabled>Seleccione una Provincia</option>
+                                                <option value="" disabled selected>Seleccione una Provincia</option>
                                                 <?php
                                                 $provincia = ConsultaController::getDatos("provincia", "idpais" , 1);
                                                 foreach ($provincia as $index => $key) {
@@ -184,13 +192,6 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-6">
-                                        <div class="form-group">
-                                            <label for="nombreModal">Direccion</label>
-                                            <input type="text" name="correo" class="form-control" id="direccion" placeholder="direccion" required>
-                                        </div>
-                                    </div>
-                        
                                     <!-- <hr Style='background-color: black'> -->
                                     <div class="col-6">
                                         <div class="form-group">
